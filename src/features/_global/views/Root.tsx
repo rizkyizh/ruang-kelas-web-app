@@ -1,7 +1,6 @@
 import RUANGKELAS from '@core/assets/icons/RUANGKELAS.svg';
 import { Header } from '../components/Header';
 import { Outlet, useNavigate } from 'react-router-dom';
-import Layout from '../components/Layout';
 import {
   Box,
   Button,
@@ -12,6 +11,7 @@ import {
   Flex
 } from '@hudoro/admin';
 import { useState } from 'react';
+import RootLayout from '../components/Layout';
 
 function RootView() {
   const navigate = useNavigate();
@@ -56,7 +56,7 @@ function RootView() {
 
   return (
     <>
-      <Layout>
+      <RootLayout>
         <Header
           logo={RUANGKELAS}
           // buttons={[{ dot: true, icon: 'Notion', render: false }]}
@@ -78,17 +78,20 @@ function RootView() {
               to: '/contact-us'
             }
           ]}
-          userData={{
-            name: 'Rizki Izzul Haq',
-            email: 'rizkiizzulhaq14@gmailc.om'
-          }}
+          // userData={{
+          //   name: 'Rizki Izzul Haq',
+          //   email: 'rizkiizzulhaq14@gmailc.om'
+          // }}
           onClickDashboard={() => {
             navigate('/dashboard');
           }}
           onClickLogout={handleShowLogoutDialog}
+          onClickLogin={() => {
+            navigate('/auth');
+          }}
         />
         <Outlet />
-      </Layout>
+      </RootLayout>
       <Dialog isShow={showDialog} onHide={handleCancelLogout}>
         <DialogTitle>Confirmation Logout</DialogTitle>
         <DialogBody>

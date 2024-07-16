@@ -24,6 +24,9 @@ import { LandingPageView } from '@features/landing-page/views/LandingPage';
 import { AboutView } from '@features/about/views/About';
 import { CatalogCourseView } from '@features/catalog-course/views/CatalogCourse';
 import { ContactUsView } from '@features/contact-us/views/ContactUs';
+import AuthView from '@features/_global/views/auth';
+import LoginView from '@features/authentication/views/Login';
+import RegisterView from '@features/authentication/views/Register';
 
 const router = createBrowserRouter([
   {
@@ -45,6 +48,29 @@ const router = createBrowserRouter([
       {
         path: 'contact-us',
         element: <ContactUsView />
+      },
+      {
+        path: 'auth',
+        element: <AuthView />,
+        children: [
+          {
+            path: '',
+            element: <LoginView />
+          },
+          {
+            path: 'register',
+            element: <RegisterView />
+          },
+          {
+            path: '*',
+            element: <NotFoundPageView />
+          }
+        ]
+      },
+
+      {
+        path: '*',
+        element: <NotFoundPageView />
       }
     ]
   },

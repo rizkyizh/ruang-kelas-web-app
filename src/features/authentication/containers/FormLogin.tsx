@@ -1,17 +1,7 @@
-import Envelope from '@core/assets/icons/Envelope';
-import {
-  Box,
-  Button,
-  Input,
-  Text,
-  useForm,
-  toast,
-  ApiResponse
-} from '@hudoro/admin';
+import { Box, Button, Input, Text, useForm } from '@hudoro/admin';
 import { memo, useRef } from 'react';
 import { EMAIL_REGEX } from '@core/libs/helpers';
 import { useNavigate } from 'react-router-dom';
-import { useRequestOTP } from '../hooks/useAuth';
 
 const initialFormState = {
   email: ''
@@ -19,7 +9,7 @@ const initialFormState = {
 
 const FormLogin = memo(() => {
   const navigate = useNavigate();
-  const otp = useRequestOTP();
+  // const otp = useRequestOTP();
 
   const inputRef = useRef<HTMLInputElement>(null);
   const form = useForm(initialFormState, {
@@ -34,7 +24,7 @@ const FormLogin = memo(() => {
     }
   });
 
-  const disableNextButton = Boolean(form.errors.email || otp.isPending);
+  // const disableNextButton = Boolean(form.errors.email || otp.isPending);
 
   const onInputChange: React.ChangeEventHandler<HTMLInputElement> = ({
     target: { name, value }
@@ -45,20 +35,20 @@ const FormLogin = memo(() => {
   const onSubmit: React.FormEventHandler<HTMLFormElement> = async e => {
     e?.preventDefault();
 
-    try {
-      await otp.request({
-        email: form.values.email,
-        phoneNumber: '',
-        type: 'EMAIL'
-      });
-      return navigate('/otp');
-    } catch (err: unknown) {
-      if ((err as ApiResponse)?.error?.message) {
-        form.setError('email', (err as ApiResponse)?.error?.message as string);
-      } else {
-        toast.danger((err as Error)?.message || 'Something wrong');
-      }
-    }
+    // try {
+    //   await otp.request({
+    //     email: form.values.email,
+    //     phoneNumber: '',
+    //     type: 'EMAIL'
+    //   });
+    //   return navigate('/otp');
+    // } catch (err: unknown) {
+    //   if ((err as ApiResponse)?.error?.message) {
+    //     form.setError('email', (err as ApiResponse)?.error?.message as string);
+    //   } else {
+    //     toast.danger((err as Error)?.message || 'Something wrong');
+    //   }
+    // }
   };
 
   return (
@@ -71,28 +61,86 @@ const FormLogin = memo(() => {
             fontFamily="Poppins"
             color="text-dark"
           >
-            Sign In
+            Masuk
           </Text>
-          <Text
-            fontSize="xl"
-            fontWeight="normal"
-            fontFamily="Poppins"
-            style={{ marginBottom: '2rem' }}
-          >
-            Sign in with your gmail account or other social media
+          <Text fontSize="lg" fontWeight="normal" fontFamily="Poppins">
+            Masuk ke kelas dengan akunmu
           </Text>
         </Box>
-        <Box>
-          <Text
-            fontFamily="Poppins"
-            style={{
-              color: 'var(--hsd-ui-text-secondary)',
-              marginBottom: '.5rem'
-            }}
-          >
-            Email
-          </Text>
-          <Box gap="spacing-8">
+        <Box gap="md">
+          <Box gap="sm">
+            <Text
+              fontFamily="Poppins"
+              style={{
+                color: 'var(--hsd-ui-text-secondary)'
+              }}
+            >
+              Username
+            </Text>
+            <Input
+              id="username"
+              name="username"
+              onChange={onInputChange}
+              value={form.values.email}
+              ref={inputRef}
+              style={{
+                fontFamily: 'Poppins'
+              }}
+            />
+          </Box>
+          <Box gap="sm">
+            <Text
+              fontFamily="Poppins"
+              style={{
+                color: 'var(--hsd-ui-text-secondary)'
+              }}
+            >
+              Password
+            </Text>
+            <Input
+              id="password"
+              name="password"
+              onChange={onInputChange}
+              value={form.values.email}
+              ref={inputRef}
+              style={{
+                fontFamily: 'Poppins'
+              }}
+            />
+          </Box>
+          <Box gap="sm" direction="row">
+            <Text fontSize="md" fontWeight="normal" fontFamily="Poppins">
+              Belum punya akun?
+            </Text>
+            <Text
+              color="primary"
+              fontSize="md"
+              fontWeight="normal"
+              fontFamily="Poppins"
+              style={{ cursor: 'pointer' }}
+              onClick={() => {
+                navigate('/auth/register');
+              }}
+            >
+              buat disini
+            </Text>
+          </Box>
+
+          <Box gap="md">
+            <Button type="submit" primary size="lg">
+              Masuk
+            </Button>
+          </Box>
+        </Box>
+      </Box>
+    </form>
+  );
+});
+
+export default FormLogin;
+
+{
+  /*
             <Box gap="spacing-2">
               <Input
                 name="email"
@@ -113,20 +161,5 @@ const FormLogin = memo(() => {
                   {form.errors.email}
                 </Text>
               )}
-            </Box>
-            <Button
-              type="submit"
-              primary
-              disabled={disableNextButton}
-              size="lg"
-            >
-              {otp.isPending ? 'Sending...' : 'Send to email'}
-            </Button>
-          </Box>
-        </Box>
-      </Box>
-    </form>
-  );
-});
-
-export default FormLogin;
+            </Box> */
+}
