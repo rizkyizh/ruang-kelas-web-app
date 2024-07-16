@@ -1,0 +1,132 @@
+/* :root { */
+/*   --hsd-ui-sidebar-width: 19.125rem; */
+/*   --hsd-ui-sidebar-width-collapse: 6rem; */
+/* } */
+
+*::-webkit-scrollbar {
+  width: 1px;
+}
+
+body {
+  background-color: var(--hsd-ui-color-gray-100);
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type='number'] {
+  -moz-appearance: textfield;
+}
+
+/* fix placeholder naik dan default font-family poppins */
+.hsd-input-placeholder {
+  font-family: 'Poppins', sans-serif !important;
+  font-weight: 400 !important;
+}
+
+.hsd-input {
+  font-family: 'Poppins', sans-serif !important;
+}
+
+/* OTP Field using @hudoro/input adjustment */
+[data-class='otp-input'] .hsd-input {
+  text-align: center;
+}
+
+[data-class='otp-input'] .hsd-input-placeholder {
+  width: 100%;
+  text-align: center;
+  flex: 1;
+}
+
+.hudoro-menu-lists {
+  gap: 0 !important;
+  padding-block: 8px !important;
+}
+
+#file-item {
+  border: 1px solid var(--hsd-ui-text-disable);
+}
+
+#file-item:hover {
+  border: 1px solid var(--hsd-ui-color-info);
+}
+
+.hsd-pagination-item.hsd-pagination-selected {
+  color: #ffffff !important;
+}
+
+.hsd-pagination-selected {
+  background-color: var(--hsd-ui-brand-primary-default) !important;
+}
+
+.hsd-pagination-item {
+  height: 38px !important;
+  width: 38px !important;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hsd-drawer-container {
+  box-shadow: -4px 0px 20px 0px rgba(0, 0, 0, 0.06) !important;
+}
+
+.hsd-drawer-container.hsd-drawer-hide-right {
+  right: 110% !important;
+}
+
+._toolbarRoot_yms4a_160 {
+  border-width: 0.01rem;
+  border-radius: 0.25rem;
+  border-style: solid;
+  border-color: #78867f33;
+  background-color: #fffeff !important;
+}
+
+._rootContentEditableWrapper_yms4a_1097.mdxeditor-root-contenteditable {
+  margin-top: 0.5rem;
+  border-width: 0.01rem;
+  border-radius: 0.25rem;
+  border-style: solid;
+  border-color: #78867f33;
+  background-color: #fffeff !important;
+  min-height: 211px;
+}
+
+strong {
+  font-weight: bold;
+}
+
+em {
+  font-style: italic;
+}
+
+em strong {
+  font-weight: bold;
+  font-style: italic;
+}
+
+ul,
+ol {
+  padding-left: 40px;
+}
+
+li {
+  margin-bottom: 10px;
+}
+
+a {
+  color: black;
+  cursor: default;
+}
+
+.mdxeditor-popup-container {
+  z-index: 9999 !important;
+}
