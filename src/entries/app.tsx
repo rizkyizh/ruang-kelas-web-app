@@ -1,4 +1,3 @@
-import RootView from '@features/_global/views/root';
 import '@hudoro/admin/dist/style.css';
 import './app.css';
 import RUANGKELAS from '@core/assets/icons/RUANGKELAS.svg';
@@ -19,11 +18,39 @@ import CoursesView from '@features/courses/views/Courses';
 
 import '@mdxeditor/editor/style.css';
 import CourseDetailView from '@features/courses/views/CourseDetail';
+import DashboardRootView from '@features/_global/views/DashboardRoot';
+import RootView from '@features/_global/views/Root';
+import { LandingPageView } from '@features/landing-page/views/LandingPage';
+import { AboutView } from '@features/about/views/About';
+import { CatalogCourseView } from '@features/catalog-course/views/CatalogCourse';
+import { ContactUsView } from '@features/contact-us/views/ContactUs';
 
 const router = createBrowserRouter([
   {
-    path: '/dashboard',
+    path: '/',
     element: <RootView />,
+    children: [
+      {
+        path: '/',
+        element: <LandingPageView />
+      },
+      {
+        path: 'about',
+        element: <AboutView />
+      },
+      {
+        path: 'catalog-course',
+        element: <CatalogCourseView />
+      },
+      {
+        path: 'contact-us',
+        element: <ContactUsView />
+      }
+    ]
+  },
+  {
+    path: '/dashboard',
+    element: <DashboardRootView />,
     children: [
       {
         path: 'courses',

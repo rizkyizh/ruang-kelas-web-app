@@ -15,7 +15,7 @@ import { deleteAuthFromStorage } from '@features/authentication/utils';
 // import { useProfile } from '../hooks/useProfile';
 // import { useMenus } from '../hooks';
 
-function RootView() {
+function DashboardRootView() {
   // const auth = useAuth();
   // const setupMenus = useMenus();
   // const location = useLocation();
@@ -63,12 +63,12 @@ function RootView() {
         logo={app.logo}
         menus={app.menus}
         onClickLogout={handleShowLogoutDialog}
-        // userData={{
-        //   email: loadingProfile
-        //     ? 'Loading...'
-        //     : userProfile?.email || 'unknown',
-        //   name: loadingProfile ? 'Loading...' : userProfile?.name || 'unknown'
-        // }}
+      // userData={{
+      //   email: loadingProfile
+      //     ? 'Loading...'
+      //     : userProfile?.email || 'unknown',
+      //   name: loadingProfile ? 'Loading...' : userProfile?.name || 'unknown'
+      // }}
       >
         <Outlet />
       </DashboardLayout>
@@ -99,4 +99,4 @@ function RootView() {
   );
 }
 
-export default RootView;
+export default DashboardRootView;
