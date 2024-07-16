@@ -8,12 +8,14 @@ import {
   Text,
   Pressable,
   IconName,
-  useMediaQuery
+  useMediaQuery,
+  Button
 } from '@hudoro/admin';
 import { Link, useNavigate } from 'react-router-dom';
 import React from 'react';
 import { useHeaderState } from './hooks';
 import { createInitialFromUserName } from '@features/_global/helper';
+import { ButtonMenuTable } from '../MenuEllipsisTable/MenuTable';
 
 // const BORDER_COLOR = "rgba(229, 231, 235, 1)";
 const BORDER_COLOR = '#d0d6dd';
@@ -40,6 +42,8 @@ export interface HeaderProps {
   buttons?: HeaderButtonProps[];
   menus: HeaderMenusData[];
   onClickLogout?: () => void;
+  onClickDashboard?: () => void;
+  onClickLogin?: () => void;
 }
 
 export function Header({
@@ -47,7 +51,9 @@ export function Header({
   onClickLogout,
   logo,
   buttons = [],
-  menus = []
+  menus = [],
+  onClickDashboard,
+  onClickLogin
 }: HeaderProps) {
   const state = useHeaderState();
   // const sidebar = useSidebar();
@@ -55,7 +61,7 @@ export function Header({
   const desktop = useMediaQuery('lg');
   const tablet = useMediaQuery('md');
 
-  const initial = createInitialFromUserName(userData?.name || '');
+  const initialName = createInitialFromUserName(userData?.name || '');
 
   const renderButtonList = () => {
     return (
@@ -95,7 +101,7 @@ export function Header({
 
   const renderMenuList = () => {
     return (
-      <Box direction="row" gap="md" align="center">
+      <Box direction="row" gap="md" align="center" show={'desktop'}>
         {menus.map((menu, i) => {
           return (
             <Pressable
@@ -163,7 +169,7 @@ export function Header({
           {renderMenuList()}
           {renderButtonList()}
           <Box
-            paddingRight="spacing-2"
+            paddingRight="spacing-0"
             paddingLeft="spacing-6"
             borderColor="gray-300"
             borderStyle="border-solid"
@@ -174,8 +180,25 @@ export function Header({
               borderBottomWidth: 0
             }}
           >
-            <Box>
-              <Menu position="bottom-right" onClick={state.toggleMobileLogout}>
+            <Box width="width-24">
+              <Menu position="bottom-right">
+                {initialName ? (
+                  <MenuButton>
+                    <Button primary onClick={state.toggleMobileLogout}>
+                      <Text fontFamily="Poppins" color="gray-50" fontSize="sm">
+                        Hello, {initialName}
+                      </Text>
+                    </Button>
+                  </MenuButton>
+                ) : (
+                  <Button primary onClick={onClickLogin}>
+                    <Text fontFamily="Poppins" color="gray-50" fontSize="sm">
+                      Masuk
+                    </Text>
+                  </Button>
+                )}
+
+                {/*
                 <MenuButton>
                   <Box
                     display="flex"
@@ -203,7 +226,6 @@ export function Header({
                           {initial || ''}
                         </Text>
                       </Box>
-                      {/*
                       <Box display="flex" show={'desktop'} direction="column">
                         <Text fontSize="md" fontWeight="semibold">
                           {userData?.name || ''}
@@ -212,52 +234,53 @@ export function Header({
                           {userData?.email || ''}
                         </Text>
                       </Box>
-                      */}
                     </Box>
+
                     <Icon name="ChevronDown" size="lg" />
                   </Box>
                 </MenuButton>
+
+            */}
                 <Box show={'tablet'}>
                   <MenuLists style={{ marginTop: '1.2rem' }}>
                     <MenuBody>
-                      <Pressable
-                        paddingRight="spacing-12"
-                        paddingLeft="sm"
-                        display="flex"
-                        align="center"
-                        justify="center"
-                        direction="row"
-                        gap="sm"
-                        cursor="pointer"
-                        onClick={onClickLogout}
-                      >
+                      <ButtonMenuTable onClick={onClickDashboard}>
+                        <Icon name="DocumentClean" size="md" />
+                        <Text fontWeight="medium" fontSize="sm" color={'text'}>
+                          Dashboard
+                        </Text>
+                      </ButtonMenuTable>
+                    </MenuBody>
+
+                    <MenuBody>
+                      <ButtonMenuTable onClick={onClickLogout}>
                         <Icon name="Logout" size="md" />
                         <Text color="red-600" fontWeight="bold" fontSize="sm">
                           Logout
                         </Text>
-                      </Pressable>
+                      </ButtonMenuTable>
                     </MenuBody>
                   </MenuLists>
                 </Box>
+
                 <Box show={'desktop'}>
                   <MenuLists style={{ marginTop: '1.2rem' }}>
                     <MenuBody>
-                      <Box
-                        paddingRight="spacing-12"
-                        paddingLeft="sm"
-                        display="flex"
-                        align="center"
-                        justify="center"
-                        direction="row"
-                        gap="sm"
-                        cursor="pointer"
-                        onClick={onClickLogout}
-                      >
+                      <ButtonMenuTable onClick={onClickDashboard}>
+                        <Icon name="DocumentClean" size="md" />
+                        <Text fontWeight="medium" fontSize="sm" color={'text'}>
+                          Dashboard
+                        </Text>
+                      </ButtonMenuTable>
+                    </MenuBody>
+
+                    <MenuBody>
+                      <ButtonMenuTable onClick={onClickLogout}>
                         <Icon name="Logout" size="md" />
                         <Text color="red-600" fontWeight="bold" fontSize="sm">
                           Logout
                         </Text>
-                      </Box>
+                      </ButtonMenuTable>
                     </MenuBody>
                   </MenuLists>
                 </Box>

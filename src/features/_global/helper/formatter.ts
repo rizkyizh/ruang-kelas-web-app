@@ -3,7 +3,7 @@ export function createInitialFromUserName(name: string) {
     .split(' ')
     .map(n => n[0])
     .join('')
-    .slice(0, 2)
+    .slice(0, 3)
     .toUpperCase();
 }
 
