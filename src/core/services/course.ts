@@ -9,6 +9,10 @@ export const courseService = {
     API_ENDPOINTS.course,
     initialOptionWithRefreshToken
   ),
+  getById: http.get<ApiResponse<CourseModel[]>>(
+    API_ENDPOINTS.course,
+    initialOptionWithRefreshToken
+  ),
   create: http.post<ApiResponse<CourseModel>, CourseCreationModel>(
     API_ENDPOINTS.course,
     initialOptionWithRefreshToken

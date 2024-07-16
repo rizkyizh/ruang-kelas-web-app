@@ -15,9 +15,10 @@ import NotFoundPageView from '@features/_global/views/NotFound';
 import ForbiddenPageView from '@features/_global/views/Forbidden';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import MembersView from '@features/members/views/Members';
-import CoursesView from '@features/courses/views/courses';
+import CoursesView from '@features/courses/views/Courses';
 
 import '@mdxeditor/editor/style.css';
+import CourseDetailView from '@features/courses/views/CourseDetail';
 
 const router = createBrowserRouter([
   {
@@ -28,10 +29,10 @@ const router = createBrowserRouter([
         path: '/courses',
         element: <CoursesView />
       },
-      // {
-      //   path: '/customers/:id',
-      //   element: <CustomerDetailView />
-      // },
+      {
+        path: '/courses/:id',
+        element: <CourseDetailView />
+      },
       {
         path: '/members',
         element: <MembersView />

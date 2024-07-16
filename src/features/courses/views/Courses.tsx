@@ -10,6 +10,7 @@ import { CourseModel } from '@core/models/course';
 import { useCourses } from '../hooks/useCourses';
 import { CourseDeleteConfirmationDialog } from '../components/Dialog/CourseDeleteConfirmationDialog';
 import { CourseCreationDrawer } from '../components/Drawer/CourseCreationDrawer';
+import { useNavigate } from 'react-router-dom';
 
 const Dot = () => (
   <Icon
@@ -23,6 +24,7 @@ const DotSuccess = () => (
 );
 
 export default function CoursesView() {
+  const navigate = useNavigate();
   const [, setCreationDrawer] = useAtom(courseCreationDrawerAtom);
   const [, setDeleteConfirmationDialog] = useAtom(
     courseDeleteConfirmationDialogAtom
@@ -47,6 +49,9 @@ export default function CoursesView() {
       itemName: item.title
     }));
   };
+  const handleDetail = (id: string | number) => {
+    navigate(`/courses/${id}`);
+  };
 
   return (
     <>
@@ -66,6 +71,7 @@ export default function CoursesView() {
           <HudoroTable
             records={items}
             isLoading={isLoading}
+            handleDetail={handleDetail}
             handleUpdate={handleUpdate}
             handleDelete={handleDelete}
             emptyState={
