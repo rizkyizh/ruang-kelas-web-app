@@ -9,7 +9,7 @@ export default function CourseDetailView() {
     <PageLayout
       backButton={{
         title: 'Course',
-        navigateTo: '/courses',
+        navigateTo: '/dashboard/courses',
         show: true
       }}
       title="Detail Course"

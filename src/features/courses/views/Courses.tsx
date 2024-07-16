@@ -50,7 +50,7 @@ export default function CoursesView() {
     }));
   };
   const handleDetail = (id: string | number) => {
-    navigate(`/courses/${id}`);
+    navigate(`${id}`);
   };
 
   return (

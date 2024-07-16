@@ -8,13 +8,13 @@ export const MENU_CONFIG: Menus = [
       {
         id: 2,
         title: 'Members',
-        to: '/members',
+        to: '/dashboard/members',
         icon: 'UserMore'
       },
       {
         id: 3,
         title: 'Courses',
-        to: '/courses',
+        to: '/dashboard/courses',
         icon: 'DocumentFilled'
       }
     ]

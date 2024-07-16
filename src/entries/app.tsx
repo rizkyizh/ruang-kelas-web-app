@@ -22,19 +22,19 @@ import CourseDetailView from '@features/courses/views/CourseDetail';
 
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: '/dashboard',
     element: <RootView />,
     children: [
       {
-        path: '/courses',
+        path: 'courses',
         element: <CoursesView />
       },
       {
-        path: '/courses/:id',
+        path: 'courses/:id',
         element: <CourseDetailView />
       },
       {
-        path: '/members',
+        path: 'members',
         element: <MembersView />
       },
       {
