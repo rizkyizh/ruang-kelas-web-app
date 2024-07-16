@@ -1,6 +1,6 @@
 import HudoroTable from '@features/_global/components/TableMaster';
 import { UIEmpty } from '@features/_global/components/UIEmpty';
-import { Badges, Icon, PageLayout, Section, Text } from '@hudoro/admin';
+import { Badges, Button, Icon, PageLayout, Section, Text } from '@hudoro/admin';
 import {
   courseCreationDrawerAtom,
   courseDeleteConfirmationDialogAtom
@@ -55,7 +55,7 @@ export default function CoursesView() {
         titleTag={`${items?.length}`}
         action={[
           {
-            title: 'Create Type',
+            title: 'Create Course',
             onClick: () => {
               setCreationDrawer(prev => ({ ...prev, show: true }));
             }
@@ -68,7 +68,26 @@ export default function CoursesView() {
             isLoading={isLoading}
             handleUpdate={handleUpdate}
             handleDelete={handleDelete}
-            emptyState={<UIEmpty message="Data empty element" />}
+            emptyState={
+              <UIEmpty
+                message="There is no Course list"
+                message2="Create your first Course now"
+                button={
+                  <Button
+                    primary
+                    onClick={() =>
+                      setCreationDrawer(prev => ({
+                        ...prev,
+                        show: true,
+                        status: 'ADD'
+                      }))
+                    }
+                  >
+                    Create Course
+                  </Button>
+                }
+              />
+            }
             columns={[
               {
                 accessor: 'ID',

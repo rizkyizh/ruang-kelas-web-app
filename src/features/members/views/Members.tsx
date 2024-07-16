@@ -10,7 +10,7 @@ export default function MembersView() {
   return (
     <>
       <PageLayout title="Member" titleTag={`${items?.length}`}>
-        <Section searchField>
+        <Section headerProps={{ borderBottom: false }}>
           <HudoroTable
             records={items}
             isLoading={isLoading}
