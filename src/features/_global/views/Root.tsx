@@ -12,26 +12,14 @@ import {
 } from '@hudoro/admin';
 import { useState } from 'react';
 import RootLayout from '../components/Layout';
-import { useAuth } from '@features/authentication/hooks/useAuth';
 import { useProfile } from '../hooks';
 import { deleteAuthFromStorage } from '@features/authentication/utils';
+import { emitAuthUpdated } from '../helper';
 
 function RootView() {
   const navigate = useNavigate();
-  const auth = useAuth();
-  // const setupMenus = useMenus();
-  // const location = useLocation();
-  // const app = useApp();
-  // const navigate = useNavigate();
   const { isPending, items } = useProfile();
-  //
   const [showDialog, setShowDialog] = useState(false);
-
-  if (auth.loading) return null;
-
-  // trigger build
-  // if (!auth.token)
-  //   return <Navigate to="/auth" state={{ userNotLogged: true }} replace />;
 
   const handleShowLogoutDialog = () => {
     setShowDialog(true);
@@ -49,15 +37,13 @@ function RootView() {
         }
       });
     });
-    window.location.reload();
+    emitAuthUpdated();
   };
-
   return (
     <>
       <RootLayout>
         <Header
           logo={RUANGKELAS}
-          // buttons={[{ dot: true, icon: 'Notion', render: false }]}
           menus={[
             {
               label: 'Home',

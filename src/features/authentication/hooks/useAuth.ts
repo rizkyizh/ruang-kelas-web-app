@@ -3,18 +3,32 @@ import { getAuthFromStorage, saveAuthToStorage } from '../utils';
 import { AuthCreationModel, AuthModel } from '@core/models/auth';
 import { useMutation } from '@tanstack/react-query';
 import authService from '@core/services/auth';
+import { AUTH_UPDATED_EVENT } from '@features/_global/helper';
 
 export const useAuth = () => {
   const [loading, setLoading] = useState(true);
   const [authData, setAuthData] = useState<AuthModel | null>(null);
 
-  useEffect(() => {
+  const fetchAuthData = () => {
     setLoading(true);
     getAuthFromStorage()
       .then(data => setAuthData(data))
       .finally(() => {
         setLoading(false);
       });
+  };
+
+  useEffect(() => {
+    fetchAuthData();
+    const handleAuthUpdated = () => {
+      fetchAuthData();
+    };
+
+    window.addEventListener(AUTH_UPDATED_EVENT, handleAuthUpdated);
+
+    return () => {
+      window.removeEventListener(AUTH_UPDATED_EVENT, handleAuthUpdated);
+    };
   }, []);
 
   return {
@@ -31,7 +45,6 @@ export function useLogin() {
     },
     onSuccess: res => {
       if (res?.status) {
-        // secara otomatis save di storage
         saveAuthToStorage({ ...res.payload[0] });
       }
     }
@@ -44,35 +57,3 @@ export function useLogin() {
     requestLogin
   };
 }
-
-// export function useValidateOTP() {
-//   const mutation = useMutation({
-//     mutationKey: ['validate-otp'],
-//     mutationFn: async (otp: string) => {
-//       // get token dari storage
-//       const data = await getTokenOtpFromStorage();
-//       return authService.validateOTP(
-//         { token: data?.token, otp },
-//         {
-//           headers: {
-//             'Application-Key': APP_CONFIG.key
-//           }
-//         }
-//       );
-//     },
-//     onSuccess: res => {
-//       if (res?.data?.accessToken && res?.data?.refreshToken) {
-//         // hapus token otp dan save data auth
-//         deleteTokenOtpFromStorage();
-//         saveAuthToStorage(res.data);
-//       }
-//     }
-//   });
-//
-//   const validate = (otp: string) => mutation.mutateAsync(otp);
-//
-//   return {
-//     ...mutation,
-//     validate
-//   };
-// }

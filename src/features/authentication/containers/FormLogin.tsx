@@ -3,6 +3,7 @@ import { memo, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthCreationModel } from '@core/models/auth';
 import { useLogin } from '../hooks/useAuth';
+import { emitAuthUpdated } from '@features/_global/helper';
 const initialErrorState = {
   username: '',
   password: ''
@@ -53,15 +54,10 @@ const FormLogin = memo(() => {
         username: form.values.username,
         password: form.values.password
       });
+      emitAuthUpdated();
       navigate('/');
-      window.location.reload();
     } catch (err: unknown) {
-      // toast.danger((err as Error)?.message || 'Something wrong');
-      // if ((err as ApiResponse)?.error?.message) {
-      //   form.setError('email', (err as ApiResponse)?.error?.message as string);
-      // } else {
-      //   toast.danger((err as Error)?.message || 'Something wrong');
-      // }
+      console.log(err);
     }
   };
 
@@ -170,40 +166,3 @@ const FormLogin = memo(() => {
 });
 
 export default FormLogin;
-
-{
-  /*
-            <Box gap="spacing-2">
-              <Input
-                name="email"
-                leftIcon={<Envelope />}
-                type="email"
-                id="emailInput"
-                onChange={onInputChange}
-                value={form.values.email}
-                placeholder="example@gmail.com"
-                ref={inputRef}
-                style={{
-                  fontFamily: 'Poppins'
-                }}
-                status={form?.errors?.email ? 'error' : 'default'}
-              />
-              {form?.errors?.email && (
-                <Text fontFamily="Poppins" color="error" fontSize="sm">
-                  {form.errors.email}
-                </Text>
-              )}
-            </Box>
-
-    validationCallback: (values, errors) => {
-      if (!values.email) {
-        errors.email = 'Email Required';
-      } else if (!EMAIL_REGEX.test(values.email)) {
-        errors.email = 'Invalid email format.';
-      }
-
-      return errors;
-    }
-  }
-*/
-}
