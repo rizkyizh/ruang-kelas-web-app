@@ -5,7 +5,7 @@ import { MemberModel } from '@core/models/member';
 import { http } from '@hudoro/admin';
 
 export const memberService = {
-  get: http.get<ApiResponse<MemberModel[]>>(
+  get: http.get<ApiResponse<MemberModel>>(
     API_ENDPOINTS.member,
     initialOptionWithRefreshToken
   )

@@ -5,11 +5,11 @@ import { CourseCreationModel, CourseModel } from '@core/models/course';
 import { http } from '@hudoro/admin';
 
 export const courseService = {
-  get: http.get<ApiResponse<CourseModel[]>>(
+  get: http.get<ApiResponse<CourseModel>>(
     API_ENDPOINTS.course,
     initialOptionWithRefreshToken
   ),
-  getById: http.get<ApiResponse<CourseModel[]>>(
+  getById: http.get<ApiResponse<CourseModel>>(
     API_ENDPOINTS.course,
     initialOptionWithRefreshToken
   ),

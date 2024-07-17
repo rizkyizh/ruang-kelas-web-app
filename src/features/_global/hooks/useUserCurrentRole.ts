@@ -16,7 +16,7 @@ interface DecodeToken {
 export function useUserCurrentRole() {
   const auth = useAuth();
 
-  const accessToken = auth.accessToken;
+  const accessToken = auth.token;
   const query = useQuery({
     queryKey: ['role', { accessToken }],
     queryFn: async () => {

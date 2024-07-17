@@ -1,4 +1,4 @@
-export function getFileFormat(url?: string): string | null {
+export default function getFileFormat(url?: string): string | null {
   if (!url) {
     throw new Error('URL tidak diberikan');
   }
