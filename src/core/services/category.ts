@@ -5,7 +5,7 @@ import { CategoryModel } from '@core/models/category';
 import { http } from '@hudoro/admin';
 
 export const categoryService = {
-  get: http.get<ApiResponse<CategoryModel[]>>(
+  get: http.get<ApiResponse<CategoryModel>>(
     API_ENDPOINTS.category,
     initialOptionWithRefreshToken
   )
