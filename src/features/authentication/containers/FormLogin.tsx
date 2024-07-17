@@ -53,7 +53,8 @@ const FormLogin = memo(() => {
         username: form.values.username,
         password: form.values.password
       });
-      return navigate('/');
+      navigate('/');
+      window.location.reload();
     } catch (err: unknown) {
       // toast.danger((err as Error)?.message || 'Something wrong');
       // if ((err as ApiResponse)?.error?.message) {

@@ -48,7 +48,7 @@ function DashboardRootView() {
   const handleConfirmLogout = () => {
     setShowDialog(false);
     deleteAuthFromStorage().then(() => {
-      navigate('/login', {
+      navigate('/auth', {
         replace: true,
         state: {
           userLoggedOut: true
@@ -63,12 +63,12 @@ function DashboardRootView() {
         logo={app.logo}
         menus={app.menus}
         onClickLogout={handleShowLogoutDialog}
-      // userData={{
-      //   email: loadingProfile
-      //     ? 'Loading...'
-      //     : userProfile?.email || 'unknown',
-      //   name: loadingProfile ? 'Loading...' : userProfile?.name || 'unknown'
-      // }}
+        // userData={{
+        //   email: loadingProfile
+        //     ? 'Loading...'
+        //     : userProfile?.email || 'unknown',
+        //   name: loadingProfile ? 'Loading...' : userProfile?.name || 'unknown'
+        // }}
       >
         <Outlet />
       </DashboardLayout>

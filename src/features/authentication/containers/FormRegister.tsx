@@ -1,153 +1,89 @@
 import Envelope from '@core/assets/icons/Envelope';
+import { isEmail } from '@core/libs/helpers';
+import { RegisterCreationModel } from '@core/models/auth';
 import { Box, Button, Text, Input, useForm } from '@hudoro/admin';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useRegister } from '../hooks/useFormOTP';
+
+const initialErrorState = {
+  name: '',
+  email: '',
+  password: '',
+  username: ''
+};
 
 export function FormRegister() {
-  // const desktop = useMediaQuery('md');
   const navigate = useNavigate();
-  const form = useForm({ name: 'str' });
-  // const {
-  //   form,
-  //   isSubmitDisabled,
-  //   inputs,
-  //   errors,
-  //   countdown,
-  //   handleInputChange,
-  //   handleInputBackspace
-  // } = useFormOTP();
-  //
-  // const validateOTP = useValidateOTP();
-  // const requestOTP = useRequestOTP();
-  //
-  // const handleSendOtpAgain = async () => {
-  //   try {
-  //     const res = await requestOTP.tryAgain();
-  //     if (res?.data?.exp) {
-  //       const diff = diffSecond(res?.data?.exp as unknown as Date);
-  //       if (diff > 0) {
-  //         countdown.resetCountdown();
-  //         countdown.setCount(diff);
-  //
-  //         countdown.startCountdown();
-  //       }
-  //     }
-  //   } catch (err: unknown) {
-  //     toast.danger(
-  //       (err as ApiResponse)?.error?.message ||
-  //       (err as Error)?.message ||
-  //       'Something wrong!'
-  //     );
-  //   }
-  // };
-  //
-  // const onSubmit: React.FormEventHandler<HTMLFormElement> = async e => {
-  //   try {
-  //     e?.preventDefault();
-  //     await validateOTP.validate(form.values.otp.join(''));
-  //     navigate('/customers', { replace: true, state: { userLoggedIn: true } });
-  //   } catch (err: unknown) {
-  //     if ((err as ApiResponse)?.error?.message) {
-  //       form.setError('otp', (err as ApiResponse)?.error?.message as string);
-  //     } else {
-  //       toast.danger((err as Error)?.message);
-  //     }
-  //   }
-  // };
-  //
-  // const onBackHome = () => {
-  //   navigate(-1 as To, { replace: true });
-  // };
-  //
-  // const handleKeyDown: React.KeyboardEventHandler<HTMLInputElement> = event => {
-  //   // Regex yang hanya mengizinkan angka
-  //   const regex = /^[0-9]$/;
-  //
-  //   // Daftar tombol yang diizinkan selain angka
-  //   const allowedKeys = [
-  //     'ArrowLeft',
-  //     'ArrowRight',
-  //     'ArrowUp',
-  //     'ArrowDown',
-  //     'Backspace',
-  //     'Delete',
-  //     'Enter',
-  //     'Tab'
-  //   ];
-  //
-  //   // Cek jika kunci yang ditekan bukan angka dan juga bukan salah satu dari allowedKeys
-  //   if (!regex.test(event.key) && !allowedKeys.includes(event.key)) {
-  //     event.preventDefault();
-  //   }
-  // };
-  //
-  // const renderRequestAgain = () => {
-  //   if (requestOTP.isPending) {
-  //     return (
-  //       <Text
-  //         fontSize="md"
-  //         fontWeight="medium"
-  //         fontFamily="Poppins"
-  //         color="gray-500"
-  //         style={{ marginBottom: '2rem' }}
-  //       >
-  //         Please Wait ...
-  //       </Text>
-  //     );
-  //   }
-  //
-  //   return (
-  //     <>
-  //       {countdown.completed ? (
-  //         <Text
-  //           onClick={handleSendOtpAgain}
-  //           fontSize="md"
-  //           fontWeight="medium"
-  //           fontFamily="Poppins"
-  //           color="primary"
-  //           style={{ marginBottom: '2rem', cursor: 'pointer' }}
-  //         >
-  //           Send OTP Again
-  //         </Text>
-  //       ) : (
-  //         <>
-  //           <Icon name="Clock" size="lg" />
-  //           <Text
-  //             fontSize="md"
-  //             fontWeight="normal"
-  //             fontFamily="Poppins"
-  //             color="primary"
-  //             style={{ marginBottom: '2rem' }}
-  //           >
-  //             {formatTime(countdown.count)}
-  //           </Text>
-  //         </>
-  //       )}
-  //     </>
-  //   );
-  // };
+  const form = useForm<RegisterCreationModel>(initialErrorState);
+  const [errors, setErrors] = useState(initialErrorState);
+
+  const validate = () => {
+    const newErrors = { ...initialErrorState };
+
+    if (!form.values.name) {
+      newErrors.name = 'Name is required';
+    }
+    if (!form.values.email) {
+      newErrors.email = 'email is required';
+    }
+
+    if (form.values.email && !isEmail(form.values.email)) {
+      newErrors.email = 'email invalid';
+    }
+
+    if (!form.values.password) {
+      newErrors.password = 'Password is required';
+    }
+    if (!form.values.username) {
+      newErrors.username = 'username is required';
+    }
+
+    const isValid = Object.values(newErrors).every(value => value === '');
+    setErrors(isValid ? initialErrorState : newErrors);
+
+    return isValid;
+  };
+
   const onInputChange: React.ChangeEventHandler<HTMLInputElement> = ({
     target: { name, value }
   }) => {
+    if (name === 'name') {
+      errors.name = '';
+    }
+
+    if (name === 'email') {
+      errors.email = '';
+    }
+    if (name === 'username') {
+      errors.username = '';
+    }
+    if (name === 'password') {
+      errors.password = '';
+    }
+
     form.setValue(name as keyof typeof form.values, value);
   };
+
+  const { isPending, register } = useRegister();
 
   const onSubmit: React.FormEventHandler<HTMLFormElement> = async e => {
     e?.preventDefault();
 
-    // try {
-    //   await otp.request({
-    //     email: form.values.email,
-    //     phoneNumber: '',
-    //     type: 'EMAIL'
-    //   });
-    //   return navigate('/otp');
-    // } catch (err: unknown) {
-    //   if ((err as ApiResponse)?.error?.message) {
-    //     form.setError('email', (err as ApiResponse)?.error?.message as string);
-    //   } else {
-    //     toast.danger((err as Error)?.message || 'Something wrong');
-    //   }
-    // }
+    if (!validate()) return;
+    console.log(form.values);
+
+    try {
+      await register({
+        name: form.values.name,
+        email: form.values.email,
+        username: form.values.username,
+        password: form.values.password
+      });
+      return navigate('/auth');
+    } catch (err: unknown) {
+      console.log(err);
+    }
   };
 
   return (
@@ -180,12 +116,17 @@ export function FormRegister() {
               id="name"
               name="name"
               onChange={onInputChange}
-              // value={form.values.email}
+              value={form.values.name}
               // ref={inputRef}
               style={{
                 fontFamily: 'Poppins'
               }}
             />
+            {errors.name && (
+              <Text fontFamily="Poppins" color="error" fontSize="sm">
+                {errors.name}
+              </Text>
+            )}
           </Box>
           <Box gap="sm">
             <Text
@@ -202,14 +143,19 @@ export function FormRegister() {
               type="email"
               id="emailInput"
               onChange={onInputChange}
-              // value={form.values.email}
+              value={form.values.email}
               placeholder="example@gmail.com"
               // ref={inputRef}
               style={{
                 fontFamily: 'Poppins'
               }}
-            // status={form?.errors?.email ? 'error' : 'default'}
+              // status={form?.errors?.email ? 'error' : 'default'}
             />
+            {errors.email && (
+              <Text fontFamily="Poppins" color="error" fontSize="sm">
+                {errors.email}
+              </Text>
+            )}
           </Box>
 
           <Box gap="sm">
@@ -225,12 +171,17 @@ export function FormRegister() {
               id="username"
               name="username"
               onChange={onInputChange}
-              // value={form.values.email}
+              value={form.values.username}
               // ref={inputRef}
               style={{
                 fontFamily: 'Poppins'
               }}
             />
+            {errors.username && (
+              <Text fontFamily="Poppins" color="error" fontSize="sm">
+                {errors.username}
+              </Text>
+            )}
           </Box>
           <Box gap="sm">
             <Text
@@ -244,13 +195,19 @@ export function FormRegister() {
             <Input
               id="password"
               name="password"
+              type="password"
               onChange={onInputChange}
-              // value={form.values.email}
+              value={form.values.password}
               // ref={inputRef}
               style={{
                 fontFamily: 'Poppins'
               }}
             />
+            {errors.password && (
+              <Text fontFamily="Poppins" color="error" fontSize="sm">
+                {errors.password}
+              </Text>
+            )}
           </Box>
           <Box gap="sm" direction="row">
             <Text fontSize="md" fontWeight="normal" fontFamily="Poppins">
@@ -271,8 +228,19 @@ export function FormRegister() {
           </Box>
 
           <Box gap="md">
-            <Button type="submit" primary size="lg">
-              Daftar
+            <Button
+              type="submit"
+              primary
+              size="lg"
+              disabled={
+                isPending ||
+                !form.values.name ||
+                !form.values.password ||
+                !form.values.username ||
+                !form.values.email
+              }
+            >
+              {isPending ? 'Loading...' : 'Daftar'}
             </Button>
           </Box>
         </Box>

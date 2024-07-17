@@ -12,29 +12,26 @@ import {
 } from '@hudoro/admin';
 import { useState } from 'react';
 import RootLayout from '../components/Layout';
+import { useAuth } from '@features/authentication/hooks/useAuth';
+import { useProfile } from '../hooks';
+import { deleteAuthFromStorage } from '@features/authentication/utils';
 
 function RootView() {
   const navigate = useNavigate();
-  // const auth = useAuth();
+  const auth = useAuth();
   // const setupMenus = useMenus();
   // const location = useLocation();
   // const app = useApp();
   // const navigate = useNavigate();
-  // // const { data: profile, isLoading: loadingProfile } = useProfile();
-  // // const userProfile = profile && profile.data ? profile.data : null;
+  const { isPending, items } = useProfile();
   //
   const [showDialog, setShowDialog] = useState(false);
 
-  // if (auth.loading) return null;
+  if (auth.loading) return null;
 
   // trigger build
-  // if (!auth.accessToken)
-  //   return <Navigate to="/login" state={{ userNotLogged: true }} replace />;
-  //
-  // if (location.pathname === '/')
-  //   return (
-  //     <Navigate to="/customers" state={{ userNotLogged: false }} replace />
-  //   );
+  // if (!auth.token)
+  //   return <Navigate to="/auth" state={{ userNotLogged: true }} replace />;
 
   const handleShowLogoutDialog = () => {
     setShowDialog(true);
@@ -44,14 +41,15 @@ function RootView() {
   };
   const handleConfirmLogout = () => {
     setShowDialog(false);
-    // deleteAuthFromStorage().then(() => {
-    //   navigate('/login', {
-    //     replace: true,
-    //     state: {
-    //       userLoggedOut: true
-    //     }
-    //   });
-    // });
+    deleteAuthFromStorage().then(() => {
+      navigate('/auth', {
+        replace: true,
+        state: {
+          userLoggedOut: true
+        }
+      });
+    });
+    window.location.reload();
   };
 
   return (
@@ -78,10 +76,18 @@ function RootView() {
               to: '/contact-us'
             }
           ]}
-          // userData={{
-          //   name: 'Rizki Izzul Haq',
-          //   email: 'rizkiizzulhaq14@gmailc.om'
-          // }}
+          userData={{
+            name: isPending
+              ? 'Loading...'
+              : items?.sub !== undefined
+                ? items.sub
+                : '',
+            email: isPending
+              ? 'Loading...'
+              : items?.email !== undefined
+                ? items.email
+                : ''
+          }}
           onClickDashboard={() => {
             navigate('/dashboard');
           }}
