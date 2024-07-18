@@ -130,3 +130,15 @@ a {
 .mdxeditor-popup-container {
   z-index: 9999 !important;
 }
+
+.truncated-text {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 300px;
+  font-family: 'Poppins';
+  font-weight: 500;
+  font-size: 12px;
+}

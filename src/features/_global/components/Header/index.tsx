@@ -131,10 +131,10 @@ export function Header({
       right="right-0"
       height="height-16"
       paddingLeft={
-        desktop ? 'spacing-64' : tablet ? 'spacing-24' : 'spacing-10'
+        desktop ? 'spacing-48' : tablet ? 'spacing-24' : 'spacing-10'
       }
       paddingRight={
-        desktop ? 'spacing-64' : tablet ? 'spacing-24' : 'spacing-10'
+        desktop ? 'spacing-48' : tablet ? 'spacing-24' : 'spacing-10'
       }
       paddingBottom="sm"
       paddingTop="sm"

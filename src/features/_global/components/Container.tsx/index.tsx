@@ -1,7 +1,7 @@
-import { Box, useMediaQuery } from '@hudoro/admin';
+import { Box, BoxProps, useMediaQuery } from '@hudoro/admin';
 import React, { ReactNode } from 'react';
 
-interface LayoutProps {
+interface LayoutProps extends BoxProps {
   children: ReactNode;
 }
 
@@ -10,11 +10,13 @@ const LayoutContainer: React.FC<LayoutProps> = React.memo(({ children }) => {
   const tablet = useMediaQuery('md');
   return (
     <Box
+      marginTop="md"
+      gap="md"
       paddingLeft={
-        desktop ? 'spacing-64' : tablet ? 'spacing-24' : 'spacing-10'
+        desktop ? 'spacing-48' : tablet ? 'spacing-24' : 'spacing-10'
       }
       paddingRight={
-        desktop ? 'spacing-64' : tablet ? 'spacing-24' : 'spacing-10'
+        desktop ? 'spacing-48' : tablet ? 'spacing-24' : 'spacing-10'
       }
     >
       {children}
