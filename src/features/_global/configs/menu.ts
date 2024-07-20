@@ -34,13 +34,19 @@ export const MENU_CONFIG: Menus = [
         id: 6,
         title: 'My Transaction',
         to: '/dashboard/my-transaction',
-        icon: 'DocumentFilled'
+        icon: 'Money'
       },
       {
         id: 7,
         title: 'My History',
         to: '/dashboard/my-history',
-        icon: 'DocumentFilled'
+        icon: 'DocumentCheck'
+      },
+      {
+        id: 8,
+        title: 'Transactions',
+        to: '/dashboard/transaction',
+        icon: 'Money'
       }
     ]
   }

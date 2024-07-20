@@ -1,7 +1,7 @@
 import { API_ENDPOINTS } from '@core/configs/app';
 import { initialOptionWithRefreshToken } from '@core/libs/helpers/refreshToken';
 import { ApiResponse } from '@core/libs/http/types';
-import { MyTransactionModel } from '@core/models/transaction';
+import { TransactionModel } from '@core/models/transaction';
 import { http } from '@hudoro/admin';
 
 export const transactionService = {
@@ -9,8 +9,12 @@ export const transactionService = {
     API_ENDPOINTS.transaction,
     initialOptionWithRefreshToken
   ),
-  getMyTransaction: http.get<ApiResponse<MyTransactionModel>>(
+  getMyTransaction: http.get<ApiResponse<TransactionModel>>(
     `${API_ENDPOINTS.transaction}/member-transactions`,
+    initialOptionWithRefreshToken
+  ),
+  getAllTransactions: http.get<ApiResponse<TransactionModel>>(
+    `${API_ENDPOINTS.transaction}`,
     initialOptionWithRefreshToken
   )
 

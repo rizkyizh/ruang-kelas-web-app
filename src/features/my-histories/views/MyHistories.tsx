@@ -3,6 +3,7 @@ import HudoroTable from '@features/_global/components/TableMaster';
 import { UIEmpty } from '@features/_global/components/UIEmpty';
 import { useMyhistories } from '../hooks/useMyHistories';
 import { STATUS_TRANSACTION } from '@features/my-transaction/helper';
+import { formatDate } from '@features/_global/helper';
 
 const Dot = () => (
   <Icon
@@ -31,7 +32,7 @@ export default function MyHistoriesView() {
                 accessor: 'Tanggal/Waktu',
                 render: ({ date }) => (
                   <Text fontFamily="Poppins" fontSize="sm">
-                    {date}
+                    {formatDate(date)}
                   </Text>
                 )
               },

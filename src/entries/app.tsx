@@ -31,6 +31,7 @@ import DashboardMenuView from '@features/dashboardMenu/views/DasboardMenu';
 import MyCourseView from '@features/my-course/views/MyCourse';
 import MyTransactionView from '@features/my-transaction/views/MyTransaction';
 import MyHistoriesView from '@features/my-histories/views/MyHistories';
+import TransactionView from '@features/transactions/views/Transactions';
 
 const router = createBrowserRouter([
   {
@@ -109,6 +110,10 @@ const router = createBrowserRouter([
       {
         path: 'my-history',
         element: <MyHistoriesView />
+      },
+      {
+        path: 'transaction',
+        element: <TransactionView />
       },
       {
         path: '403',

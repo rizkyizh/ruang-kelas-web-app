@@ -1,8 +1,8 @@
-import { MyTransactionModel } from './transaction';
+import { TransactionModel } from './transaction';
 
 export interface MyHistoryModel {
   id: number;
   date: string;
   status: string;
-  transaction: MyTransactionModel;
+  transaction: TransactionModel;
 }

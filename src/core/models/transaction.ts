@@ -5,7 +5,7 @@ export interface addCourseCreationModel {
   courseId: number;
 }
 
-export interface MyTransactionModel {
+export interface TransactionModel {
   id: number;
   course: CourseModel;
   member: MemberModel;

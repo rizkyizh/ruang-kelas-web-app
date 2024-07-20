@@ -62,3 +62,24 @@ export function convertSize(size: string) {
   // Jika sudah dalam format angka, langsung konversi ke 'Kb'
   return `${Math.ceil(Number(size) / 1000)}Kb`;
 }
+
+export function formatDate(dateString: string) {
+  const date = new Date(dateString);
+  const day = date.getDate();
+  const month = date.getMonth() + 1;
+  const year = date.getFullYear();
+  const hours = date.getHours();
+  const minutes = date.getMinutes();
+  const seconds = date.getSeconds();
+
+  const forday = day.toString().padStart(2, '0');
+
+  return `${forday} ${getMonthName(month)} ${year} - ${hours}:${minutes}:${seconds}`;
+}
+
+function getMonthName(month: number) {
+  const date = new Date();
+  date.setMonth(month - 1);
+
+  return date.toLocaleString('default', { month: 'long' });
+}
