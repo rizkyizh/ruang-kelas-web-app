@@ -1,22 +1,22 @@
-import { CourseCreationModel } from '@core/models/course';
-import { IFormCourseCreationModelState } from '../types';
-
-export function courseFormDataStateModel_To_CourseCreationModel(
-  dataState: IFormCourseCreationModelState
-): CourseCreationModel {
-  return {
-    thumbnail: dataState.thumbnail,
-    end: dataState.end,
-    start: dataState.start,
-    is_enabled: dataState.is_enabled,
-    category: dataState.category,
-    title: dataState.title,
-    periode: dataState.periode,
-    price: dataState.price,
-    instructor: dataState.instructor,
-    description: dataState.description
-  };
-}
+// import { CourseCreationModel } from '@core/models/course';
+// import { IFormCourseCreationModelState } from '../types';
+//
+// export function courseFormDataStateModel_To_CourseCreationModel(
+//   dataState: IFormCourseCreationModelState
+// ): CourseCreationModel {
+//   return {
+//     thumbnail: dataState.thumbnail,
+//     end: dataState.end,
+//     start: dataState.start,
+//     is_enabled: dataState.is_enabled,
+//     category: dataState.category,
+//     title: dataState.title,
+//     periode: dataState.periode,
+//     price: dataState.price,
+//     instructor: dataState.instructor,
+//     description: dataState.description
+//   };
+// }
 
 // export function businessTypeFormDataStateModel_To_BusinessTypeUpdateModel(
 //   dataState: IFormBusinessTypeCreationModelState

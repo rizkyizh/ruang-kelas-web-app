@@ -12,7 +12,7 @@ import {
 import { Outlet, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { deleteAuthFromStorage } from '@features/authentication/utils';
-import { useProfile } from '../hooks';
+import { useMenus, useProfile } from '../hooks';
 import { useQueryClient } from '@tanstack/react-query';
 import { emitAuthUpdated } from '../helper';
 // import { useProfile } from '../hooks/useProfile';
@@ -21,7 +21,7 @@ import { emitAuthUpdated } from '../helper';
 function DashboardRootView() {
   const queryClient = useQueryClient();
   // const auth = useAuth();
-  // const setupMenus = useMenus();
+  const setupMenus = useMenus();
   // const location = useLocation();
   const app = useApp();
   const navigate = useNavigate();
@@ -69,7 +69,7 @@ function DashboardRootView() {
     <>
       <DashboardLayout
         logo={app.logo}
-        menus={app.menus}
+        menus={setupMenus}
         onClickLogout={handleShowLogoutDialog}
         userData={{
           name: isPending

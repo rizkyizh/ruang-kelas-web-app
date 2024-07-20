@@ -1,5 +1,5 @@
 import { useTransactionCreation } from '@features/transactions/hooks/useTransactionCreation';
-import { transactionUpdateStatusConfirmationDialogAtom } from '@features/transactions/stores';
+import { updateStatusTransactionConfirmationDialogAtom } from '@features/transactions/stores';
 import {
   Box,
   Button,
@@ -11,14 +11,13 @@ import {
   Text
 } from '@hudoro/admin';
 import { useAtom } from 'jotai';
-import { RESET } from 'jotai/utils';
 import { useState } from 'react';
 interface IConfirmUpdateStatusDialog {
   resetDrawer: () => void;
 }
 export function ConfirmUpdateStatusDialog(props: IConfirmUpdateStatusDialog) {
   const [action, setAction] = useAtom(
-    transactionUpdateStatusConfirmationDialogAtom
+    updateStatusTransactionConfirmationDialogAtom
   );
 
   const [status, setStatus] = useState<'success' | 'failed'>();
@@ -41,7 +40,7 @@ export function ConfirmUpdateStatusDialog(props: IConfirmUpdateStatusDialog) {
   };
 
   const handleOnHide = () => {
-    setAction(RESET);
+    setAction({ show: false, idTransactionSelected: 0 });
     setStatus(undefined);
   };
 

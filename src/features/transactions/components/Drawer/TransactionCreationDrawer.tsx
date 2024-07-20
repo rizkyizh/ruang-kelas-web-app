@@ -4,11 +4,11 @@ import { formatDate } from '@features/_global/helper';
 import { STATUS_TRANSACTION } from '@features/my-transaction/helper';
 import {
   transactionCreationDrawerAtom,
-  transactionUpdateStatusConfirmationDialogAtom
+  updateStatusTransactionConfirmationDialogAtom
 } from '@features/transactions/stores';
 import { Dot, DotSuccess } from '@features/transactions/views/Transactions';
 import { Box, Button, Text, RightDrawer, Badges } from '@hudoro/admin';
-import { useAtom } from 'jotai';
+import { useAtom, useSetAtom } from 'jotai';
 import { RESET } from 'jotai/utils';
 import { useCallback } from 'react';
 import { ConfirmUpdateStatusDialog } from '../Dialog/ConfirmUpdateStatusDialog';
@@ -17,7 +17,7 @@ export function TransactionCreationDrawer() {
   const [creationDrawer, setCreationDrawer] = useAtom(
     transactionCreationDrawerAtom
   );
-  const [, setAction] = useAtom(transactionUpdateStatusConfirmationDialogAtom);
+  const setAction = useSetAtom(updateStatusTransactionConfirmationDialogAtom);
   // const form = useForm<IFormTransactionCreationModelState>(creationDrawer.dataState);
 
   const handleBackButton = useCallback(() => {

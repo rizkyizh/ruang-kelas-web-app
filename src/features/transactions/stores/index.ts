@@ -1,6 +1,7 @@
 import { ISingleActionDrawerAtomModel } from '@features/_global/types';
 import { atomWithReset } from 'jotai/utils';
 import { IFormTransactionCreationModelState } from '../types';
+import { atom } from 'jotai';
 
 export const transactionCreationDrawerAtom = atomWithReset<
   ISingleActionDrawerAtomModel<IFormTransactionCreationModelState>
@@ -8,7 +9,7 @@ export const transactionCreationDrawerAtom = atomWithReset<
   show: false
 });
 
-export const transactionUpdateStatusConfirmationDialogAtom = atomWithReset({
+export const updateStatusTransactionConfirmationDialogAtom = atom({
   show: false,
   idTransactionSelected: 0
 });

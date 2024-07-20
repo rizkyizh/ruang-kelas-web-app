@@ -11,7 +11,6 @@ export const MENU_CONFIG: Menus = [
         to: '/dashboard/home',
         icon: 'Home1'
       },
-
       {
         id: 3,
         title: 'Members',
@@ -24,24 +23,24 @@ export const MENU_CONFIG: Menus = [
         to: '/dashboard/courses',
         icon: 'DocumentFilled'
       },
-      {
-        id: 5,
-        title: 'My Courses',
-        to: '/dashboard/my-course',
-        icon: 'DocumentFilled'
-      },
-      {
-        id: 6,
-        title: 'My Transaction',
-        to: '/dashboard/my-transaction',
-        icon: 'Money'
-      },
-      {
-        id: 7,
-        title: 'My History',
-        to: '/dashboard/my-history',
-        icon: 'DocumentCheck'
-      },
+      // {
+      //   id: 5,
+      //   title: 'My Courses',
+      //   to: '/dashboard/my-course',
+      //   icon: 'DocumentFilled'
+      // },
+      // {
+      //   id: 6,
+      //   title: 'My Transaction',
+      //   to: '/dashboard/my-transaction',
+      //   icon: 'Money'
+      // },
+      // {
+      //   id: 7,
+      //   title: 'My History',
+      //   to: '/dashboard/my-history',
+      //   icon: 'DocumentCheck'
+      // },
       {
         id: 8,
         title: 'Transactions',
