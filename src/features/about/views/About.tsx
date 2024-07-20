@@ -1,5 +1,5 @@
-import { Text } from '@hudoro/admin';
+import ComingSoon from '@features/_global/components/Comingsoon';
 
 export function AboutView() {
-  return <Text>Tentang Kami</Text>;
+  return <ComingSoon />;
 }

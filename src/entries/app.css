@@ -142,3 +142,21 @@ a {
   font-weight: 500;
   font-size: 12px;
 }
+
+#hero:before {
+  content: '';
+  background: rgba(0, 0, 0, 0.4);
+  position: absolute;
+  bottom: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+#btn-masuk {
+  margin-top: 24px;
+  width: 100px;
+  z-index: 10;
+  color: white;
+  border-color: white;
+}

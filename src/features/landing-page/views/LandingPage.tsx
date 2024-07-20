@@ -1,5 +1,65 @@
-import { Text } from '@hudoro/admin';
+import { Box, Button, Text } from '@hudoro/admin';
 
+import sigInImage from '@core/assets/svg/hero-bg.jpg';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '@features/authentication/hooks/useAuth';
 export function LandingPageView() {
-  return <Text>Landing Page</Text>;
+  const auth = useAuth();
+  const navigate = useNavigate();
+  return (
+    <Box
+      width="width-screen"
+      customHeight={'80vh'}
+      position="relative"
+      id="hero"
+      style={{
+        backgroundImage: `url(${sigInImage})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat'
+      }}
+      justify="center"
+      align="center"
+    >
+      <Box>
+        <Text
+          fontSize="5xl"
+          fontWeight="extrabold"
+          style={{
+            color: 'white',
+            zIndex: 10
+          }}
+          lineHeight="leading-snug"
+        >
+          Learning Today,
+          <br />
+          Leading Tomorrow
+        </Text>
+        <Text
+          fontSize="xl"
+          style={{
+            color: 'white',
+            zIndex: 10
+          }}
+        >
+          Lorem, ipsum dolor sit amet consectetur adipisicing elit. At eveniet
+          quos repellat suscipit? Nisi, at?
+        </Text>
+        <Button
+          onClick={() => {
+            if (!auth.token) {
+              navigate('/auth');
+            } else {
+              navigate('/dashboard/my-course');
+            }
+          }}
+          quaternary
+          corner="circular"
+          id="btn-masuk"
+        >
+          {!auth.token ? 'Masuk' : 'Go to dashboard'}
+        </Button>
+      </Box>
+    </Box>
+  );
 }

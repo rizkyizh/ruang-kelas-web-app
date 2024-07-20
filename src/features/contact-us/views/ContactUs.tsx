@@ -1,5 +1,5 @@
-import { Text } from '@hudoro/admin';
+import ComingSoon from '@features/_global/components/Comingsoon';
 
 export function ContactUsView() {
-  return <Text>Contact Us</Text>;
+  return <ComingSoon />;
 }
