@@ -21,5 +21,6 @@ export const API_ENDPOINTS = {
   businessType: `${APP_CONFIG.api.baseUrl}/business-entity-type`,
   member: `${APP_CONFIG.api.baseUrl}/member`,
   course: `${APP_CONFIG.api.baseUrl}/course`,
-  category: `${APP_CONFIG.api.baseUrl}/course/category`
+  category: `${APP_CONFIG.api.baseUrl}/course/category`,
+  transaction: `${APP_CONFIG.api.baseUrl}/transaction`
 };

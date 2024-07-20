@@ -13,14 +13,20 @@ import { useAtom } from 'jotai';
 import { confirmAddCourseDialogAtom } from '../store';
 import { RESET } from 'jotai/utils';
 import { useState } from 'react';
+import { useCatalogCourseCreation } from '../hooks/useCatalogCourseCreation';
 
 export function ConfirmAddCourseDialog() {
   const [action, setAction] = useAtom(confirmAddCourseDialogAtom);
 
   const [isDone, setIsDone] = useState(false);
 
-  const handleYes = () => {
-    //TODO: interasikan ke add kelas
+  const { addCoursebyMember } = useCatalogCourseCreation();
+
+  const handleYes = async () => {
+    await addCoursebyMember({
+      courseId: action.isCourse
+    });
+    handleOnHide();
   };
 
   const handleOnHide = () => {
