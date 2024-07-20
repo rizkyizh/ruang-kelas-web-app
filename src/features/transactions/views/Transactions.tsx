@@ -1,15 +1,8 @@
 import HudoroTable from '@features/_global/components/TableMaster';
 import { UIEmpty } from '@features/_global/components/UIEmpty';
-import { Badges, Button, Icon, PageLayout, Section, Text } from '@hudoro/admin';
-import {
-  courseCreationDrawerAtom,
-  courseDeleteConfirmationDialogAtom
-} from '../stores';
-import { useAtom } from 'jotai';
-import { CourseModel } from '@core/models/course';
+import { Badges, Icon, PageLayout, Section, Text } from '@hudoro/admin';
 import { CourseDeleteConfirmationDialog } from '../components/Dialog/CourseDeleteConfirmationDialog';
 import { CourseCreationDrawer } from '../components/Drawer/CourseCreationDrawer';
-import { useNavigate } from 'react-router-dom';
 import { useTransactions } from '../hooks/useTransactions';
 import { STATUS_TRANSACTION } from '@features/my-transaction/helper';
 import { formatDate } from '@features/_global/helper';
@@ -26,11 +19,11 @@ const DotSuccess = () => (
 );
 
 export default function TransactionView() {
-  const navigate = useNavigate();
-  const [, setCreationDrawer] = useAtom(courseCreationDrawerAtom);
-  const [, setDeleteConfirmationDialog] = useAtom(
-    courseDeleteConfirmationDialogAtom
-  );
+  // const navigate = useNavigate();
+  // const [, setCreationDrawer] = useAtom(courseCreationDrawerAtom);
+  // const [, setDeleteConfirmationDialog] = useAtom(
+  //   courseDeleteConfirmationDialogAtom
+  // );
   const { items, isLoading } = useTransactions();
 
   // const handleUpdate = (item: CourseModel) => {
@@ -60,14 +53,14 @@ export default function TransactionView() {
       <PageLayout
         title="Transactions"
         titleTag={`${items?.length}`}
-        action={[
-          {
-            title: 'Create Course',
-            onClick: () => {
-              setCreationDrawer(prev => ({ ...prev, show: true }));
-            }
-          }
-        ]}
+        // action={[
+        //   {
+        //     title: 'Create Course',
+        //     onClick: () => {
+        //       setCreationDrawer(prev => ({ ...prev, show: true }));
+        //     }
+        //   }
+        // ]}
       >
         <Section>
           <HudoroTable
@@ -79,21 +72,21 @@ export default function TransactionView() {
             emptyState={
               <UIEmpty
                 message="There is no Transactions"
-              // message2="Create your first Course now"
-              // button={
-              //   <Button
-              //     primary
-              //     onClick={() =>
-              //       setCreationDrawer(prev => ({
-              //         ...prev,
-              //         show: true,
-              //         status: 'ADD'
-              //       }))
-              //     }
-              //   >
-              //     Create Course
-              //   </Button>
-              // }
+                // message2="Create your first Course now"
+                // button={
+                //   <Button
+                //     primary
+                //     onClick={() =>
+                //       setCreationDrawer(prev => ({
+                //         ...prev,
+                //         show: true,
+                //         status: 'ADD'
+                //       }))
+                //     }
+                //   >
+                //     Create Course
+                //   </Button>
+                // }
               />
             }
             columns={[
