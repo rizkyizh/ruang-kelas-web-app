@@ -12,6 +12,7 @@ import {
 import { Outlet, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { deleteAuthFromStorage } from '@features/authentication/utils';
+import { useProfile } from '../hooks';
 // import { useProfile } from '../hooks/useProfile';
 // import { useMenus } from '../hooks';
 
@@ -23,6 +24,8 @@ function DashboardRootView() {
   const navigate = useNavigate();
   // const { data: profile, isLoading: loadingProfile } = useProfile();
   // const userProfile = profile && profile.data ? profile.data : null;
+
+  const { isPending, items } = useProfile();
 
   const [showDialog, setShowDialog] = useState(false);
 
@@ -63,12 +66,18 @@ function DashboardRootView() {
         logo={app.logo}
         menus={app.menus}
         onClickLogout={handleShowLogoutDialog}
-        // userData={{
-        //   email: loadingProfile
-        //     ? 'Loading...'
-        //     : userProfile?.email || 'unknown',
-        //   name: loadingProfile ? 'Loading...' : userProfile?.name || 'unknown'
-        // }}
+        userData={{
+          name: isPending
+            ? 'Loading...'
+            : items?.sub !== undefined
+              ? items.sub
+              : '',
+          email: isPending
+            ? 'Loading...'
+            : items?.email !== undefined
+              ? items.email
+              : ''
+        }}
       >
         <Outlet />
       </DashboardLayout>

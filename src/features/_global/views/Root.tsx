@@ -75,7 +75,7 @@ function RootView() {
                 : ''
           }}
           onClickDashboard={() => {
-            navigate('/dashboard');
+            navigate('/dashboard/home');
           }}
           onClickLogout={handleShowLogoutDialog}
           onClickLogin={() => {

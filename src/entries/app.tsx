@@ -27,6 +27,7 @@ import { ContactUsView } from '@features/contact-us/views/ContactUs';
 import AuthView from '@features/_global/views/auth';
 import LoginView from '@features/authentication/views/Login';
 import RegisterView from '@features/authentication/views/Register';
+import DashboardMenuView from '@features/dashboardMenu/views/DasboardMenu';
 
 const router = createBrowserRouter([
   {
@@ -79,6 +80,10 @@ const router = createBrowserRouter([
     element: <DashboardRootView />,
     children: [
       {
+        path: 'home',
+        element: <DashboardMenuView />
+      },
+      {
         path: 'courses',
         element: <CoursesView />
       },
@@ -95,11 +100,11 @@ const router = createBrowserRouter([
         element: <ForbiddenPageView />
       },
       {
-        path: '*',
+        path: '',
         element: <NotFoundPageView />
       }
     ]
-  }
+  },
   // {
   //   path: '/',
   //   element: <AuthView />,
@@ -118,6 +123,10 @@ const router = createBrowserRouter([
   //     }
   //   ]
   // }
+  {
+    path: '',
+    element: <NotFoundPageView />
+  }
 ]);
 
 function AppContainer() {
