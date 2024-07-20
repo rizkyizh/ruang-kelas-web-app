@@ -28,6 +28,9 @@ import AuthView from '@features/_global/views/auth';
 import LoginView from '@features/authentication/views/Login';
 import RegisterView from '@features/authentication/views/Register';
 import DashboardMenuView from '@features/dashboardMenu/views/DasboardMenu';
+import MyCourseView from '@features/my-course/views/MyCourse';
+import MyTransactionView from '@features/my-transaction/views/MyTransaction';
+import MyHistoriesView from '@features/my-histories/views/MyHistories';
 
 const router = createBrowserRouter([
   {
@@ -94,6 +97,18 @@ const router = createBrowserRouter([
       {
         path: 'members',
         element: <MembersView />
+      },
+      {
+        path: 'my-course',
+        element: <MyCourseView />
+      },
+      {
+        path: 'my-transaction',
+        element: <MyTransactionView />
+      },
+      {
+        path: 'my-history',
+        element: <MyHistoriesView />
       },
       {
         path: '403',
