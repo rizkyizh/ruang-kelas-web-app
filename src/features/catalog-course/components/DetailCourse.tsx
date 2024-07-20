@@ -1,13 +1,13 @@
 import { Box, Button, Icon, Text } from '@hudoro/admin';
 import defaultImg from '@core/assets/svg/preview_img_default.svg';
 import MarkdownRenderer from '@features/_global/components/MarkdownRenderer';
-import { CourseModel } from '@core/models/course';
+import { CourseMemberModel } from '@core/models/course';
 import { DetailCourseSection } from './DetailCourse/DetailCourseSection';
 import { useAtom } from 'jotai';
 import { confirmAddCourseDialogAtom } from '../store';
 
 interface IDetailCourse {
-  data: CourseModel;
+  data: CourseMemberModel;
 }
 export function DetailCourse(props: IDetailCourse) {
   const [, setDialogChart] = useAtom(confirmAddCourseDialogAtom);
@@ -29,7 +29,8 @@ export function DetailCourse(props: IDetailCourse) {
                 ...prev,
                 show: true,
                 isCourse: props.data.id,
-                nameCourse: props.data.title
+                nameCourse: props.data.title,
+                isRegistered: props.data.isRegistered
               }));
             }}
             iconLeft={<Icon name="Cart4" size="md" />}

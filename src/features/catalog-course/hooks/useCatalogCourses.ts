@@ -1,10 +1,15 @@
 import { courseService } from '@core/services/course';
+import { useAuth } from '@features/authentication/hooks/useAuth';
 import { useQuery } from '@tanstack/react-query';
 
 export function useCatalogCourses() {
+  const { token } = useAuth();
   const query = useQuery({
-    queryKey: ['course-catalog'],
-    queryFn: () => courseService.getCatalogCourse(),
+    queryKey: ['course-catalog', { token }],
+    queryFn: () =>
+      !token
+        ? courseService.getCatalogCourse()
+        : courseService.getCoursesMember(),
     refetchOnMount: 'always'
   });
 
@@ -14,20 +19,3 @@ export function useCatalogCourses() {
     items
   };
 }
-//
-// export function useDetailCourse() {
-//   const { id } = useParams();
-//   // const [searchParams, setSearchParams] = useSearchParams();
-//   // const searchQueries = searchParamsToObject(searchParams.toString());
-//
-//   const query = useQuery({
-//     queryKey: ['course-catalog', { id }],
-//     queryFn: () => courseService.getById({ path: id })
-//   });
-//
-//   const items = query.data?.payload[0];
-//   return {
-//     ...query,
-//     items
-//   };
-// }

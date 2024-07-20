@@ -40,7 +40,28 @@ export function ConfirmAddCourseDialog() {
 
   return (
     <Dialog isShow={action.show} onHide={handleOnHide}>
-      {auth.token ? (
+      {action.isRegistered ? (
+        <>
+          <DialogTitle>Kelas Sudah Aktif</DialogTitle>
+          <DialogFooter>
+            <Box display="flex" align="flex-end" justify="center">
+              <Flex direction="row" gap="sm" align="center">
+                <Box>
+                  <Button
+                    secondary
+                    onClick={() => {
+                      handleOnHide();
+                      navigate('/dashboard/my-course');
+                    }}
+                  >
+                    Go to dashboard
+                  </Button>
+                </Box>
+              </Flex>
+            </Box>
+          </DialogFooter>
+        </>
+      ) : auth.token ? (
         <>
           <DialogTitle>Daftar Kelas ini</DialogTitle>
           <DialogBody>

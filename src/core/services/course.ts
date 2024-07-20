@@ -1,7 +1,11 @@
 import { API_ENDPOINTS } from '@core/configs/app';
 import { initialOptionWithRefreshToken } from '@core/libs/helpers/refreshToken';
 import { ApiResponse } from '@core/libs/http/types';
-import { CourseCreationModel, CourseModel } from '@core/models/course';
+import {
+  CourseCreationModel,
+  CourseMemberModel,
+  CourseModel
+} from '@core/models/course';
 import { TransactionModel } from '@core/models/transaction';
 import { http } from '@hudoro/admin';
 
@@ -31,6 +35,10 @@ export const courseService = {
   ),
   getMyCourses: http.get<ApiResponse<TransactionModel>>(
     `${API_ENDPOINTS.transaction}/course-registered`,
+    initialOptionWithRefreshToken
+  ),
+  getCoursesMember: http.get<ApiResponse<CourseMemberModel>>(
+    `${API_ENDPOINTS.course}/member`,
     initialOptionWithRefreshToken
   )
 };
