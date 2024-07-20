@@ -6,8 +6,8 @@ import { STATUS_TRANSACTION } from '@features/my-transaction/helper';
 import { formatDate } from '@features/_global/helper';
 import { TransactionCreationDrawer } from '../components/Drawer/TransactionCreationDrawer';
 import { useAtom } from 'jotai';
-import { transactionCreationDrawerAtom } from '../stores';
 import { TransactionModel } from '@core/models/transaction';
+import { transCreationDrawerAtom } from '../stores';
 
 export const Dot = () => (
   <Icon
@@ -21,9 +21,7 @@ export const DotSuccess = () => (
 );
 
 export default function TransactionView() {
-  const [, setCreationDrawer] = useAtom(
-    transactionCreationDrawerAtom
-  );
+  const [, setCreationDrawer] = useAtom(transCreationDrawerAtom);
 
   // const navigate = useNavigate();
   // const [, setCreationDrawer] = useAtom(courseCreationDrawerAtom);
@@ -58,14 +56,14 @@ export default function TransactionView() {
       <PageLayout
         title="Transactions"
         titleTag={`${items?.length}`}
-      // action={[
-      //   {
-      //     title: 'Create Course',
-      //     onClick: () => {
-      //       setCreationDrawer(prev => ({ ...prev, show: true }));
-      //     }
-      //   }
-      // ]}
+        // action={[
+        //   {
+        //     title: 'Create Course',
+        //     onClick: () => {
+        //       setCreationDrawer(prev => ({ ...prev, show: true }));
+        //     }
+        //   }
+        // ]}
       >
         <Section>
           <HudoroTable
@@ -80,21 +78,21 @@ export default function TransactionView() {
             emptyState={
               <UIEmpty
                 message="There is no Transactions"
-              // message2="Create your first Course now"
-              // button={
-              //   <Button
-              //     primary
-              //     onClick={() =>
-              //       setCreationDrawer(prev => ({
-              //         ...prev,
-              //         show: true,
-              //         status: 'ADD'
-              //       }))
-              //     }
-              //   >
-              //     Create Course
-              //   </Button>
-              // }
+                // message2="Create your first Course now"
+                // button={
+                //   <Button
+                //     primary
+                //     onClick={() =>
+                //       setCreationDrawer(prev => ({
+                //         ...prev,
+                //         show: true,
+                //         status: 'ADD'
+                //       }))
+                //     }
+                //   >
+                //     Create Course
+                //   </Button>
+                // }
               />
             }
             columns={[

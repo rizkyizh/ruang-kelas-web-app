@@ -3,21 +3,21 @@ import { TextFormLabel } from '@features/_global/components';
 import { formatDate } from '@features/_global/helper';
 import { STATUS_TRANSACTION } from '@features/my-transaction/helper';
 import {
-  transactionCreationDrawerAtom,
+  transCreationDrawerAtom,
   updateStatusTransactionConfirmationDialogAtom
 } from '@features/transactions/stores';
 import { Dot, DotSuccess } from '@features/transactions/views/Transactions';
 import { Box, Button, Text, RightDrawer, Badges } from '@hudoro/admin';
-import { useAtom, useSetAtom } from 'jotai';
+import { useAtom } from 'jotai';
 import { RESET } from 'jotai/utils';
 import { useCallback } from 'react';
 import { ConfirmUpdateStatusDialog } from '../Dialog/ConfirmUpdateStatusDialog';
 
 export function TransactionCreationDrawer() {
-  const [creationDrawer, setCreationDrawer] = useAtom(
-    transactionCreationDrawerAtom
+  const [creationDrawer, setCreationDrawer] = useAtom(transCreationDrawerAtom);
+  const [action, setAction] = useAtom(
+    updateStatusTransactionConfirmationDialogAtom
   );
-  const setAction = useSetAtom(updateStatusTransactionConfirmationDialogAtom);
   // const form = useForm<IFormTransactionCreationModelState>(creationDrawer.dataState);
 
   const handleBackButton = useCallback(() => {
@@ -141,7 +141,14 @@ export function TransactionCreationDrawer() {
           </Button>
         </Box>
       </RightDrawer>
-      <ConfirmUpdateStatusDialog resetDrawer={handleBackButton} />
+      <ConfirmUpdateStatusDialog
+        onHide={() => setAction({ show: false, idTransactionSelected: 0 })}
+        action={{
+          show: action.show,
+          idTransactionSelected: action.idTransactionSelected
+        }}
+        resetDrawer={handleBackButton}
+      />
     </>
   );
 }

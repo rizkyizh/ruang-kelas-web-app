@@ -3,7 +3,7 @@ import { atomWithReset } from 'jotai/utils';
 import { IFormTransactionCreationModelState } from '../types';
 import { atom } from 'jotai';
 
-export const transactionCreationDrawerAtom = atomWithReset<
+export const transCreationDrawerAtom = atomWithReset<
   ISingleActionDrawerAtomModel<IFormTransactionCreationModelState>
 >({
   show: false
