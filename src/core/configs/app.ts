@@ -22,5 +22,6 @@ export const API_ENDPOINTS = {
   member: `${APP_CONFIG.api.baseUrl}/member`,
   course: `${APP_CONFIG.api.baseUrl}/course`,
   category: `${APP_CONFIG.api.baseUrl}/course/category`,
-  transaction: `${APP_CONFIG.api.baseUrl}/transaction`
+  transaction: `${APP_CONFIG.api.baseUrl}/transaction`,
+  history: `${APP_CONFIG.api.baseUrl}/history`
 };
