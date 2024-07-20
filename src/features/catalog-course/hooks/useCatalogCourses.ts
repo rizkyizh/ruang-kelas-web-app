@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 export function useCatalogCourses() {
   const query = useQuery({
     queryKey: ['course-catalog'],
-    queryFn: () => courseService.get()
+    queryFn: () => courseService.getCatalogCourse()
   });
 
   const items = query.data?.payload.filter(e => e.is_enabled);

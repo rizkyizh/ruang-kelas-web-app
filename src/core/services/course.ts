@@ -5,6 +5,7 @@ import { CourseCreationModel, CourseModel } from '@core/models/course';
 import { http } from '@hudoro/admin';
 
 export const courseService = {
+  getCatalogCourse: http.get<ApiResponse<CourseModel>>(API_ENDPOINTS.course),
   get: http.get<ApiResponse<CourseModel>>(
     API_ENDPOINTS.course,
     initialOptionWithRefreshToken
