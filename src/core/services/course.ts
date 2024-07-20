@@ -6,7 +6,9 @@ import { TransactionModel } from '@core/models/transaction';
 import { http } from '@hudoro/admin';
 
 export const courseService = {
-  getCatalogCourse: http.get<ApiResponse<CourseModel>>(API_ENDPOINTS.course),
+  getCatalogCourse: http.get<ApiResponse<CourseModel>>(API_ENDPOINTS.course, {
+    withAppAuth: false
+  }),
   get: http.get<ApiResponse<CourseModel>>(
     API_ENDPOINTS.course,
     initialOptionWithRefreshToken

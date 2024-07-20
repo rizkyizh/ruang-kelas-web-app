@@ -40,7 +40,7 @@ export function CatalogCourseView() {
             title="Daftar Kelas Tersedia"
             titleTag={`${items?.length}`}
             headerProps={{ borderBottom: false }}
-            // action={<Button onClick={() => refetch()}>refresh</Button>}
+          // action={<Button onClick={() => refetch()}>refresh</Button>}
           >
             <Box
               bg="gray-50"
