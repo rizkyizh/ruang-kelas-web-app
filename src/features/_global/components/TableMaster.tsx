@@ -43,6 +43,11 @@ interface DataTableProps<T extends BaseRecord> {
   emptyState?: React.ReactElement;
   isLoading: boolean;
   noFilterText?: string;
+  titleActionCustom?: {
+    detail?: string,
+    update?: string,
+    delete?: string
+  }
 }
 
 const HudoroTable = <T extends BaseRecord>({
@@ -57,7 +62,8 @@ const HudoroTable = <T extends BaseRecord>({
   isLoading = false,
   emptyState,
   noFilterText,
-  emptyStateFilter
+  emptyStateFilter,
+  titleActionCustom
 }: DataTableProps<T>) => {
   const [allSelected, setAllSelected] = useState(false);
   const [searchParams] = useSearchParams();
@@ -70,7 +76,7 @@ const HudoroTable = <T extends BaseRecord>({
   useEffect(() => {
     setAllSelected(
       (records?.length || 0) > 0 &&
-        (selectedRecords?.length || 0) === records?.length
+      (selectedRecords?.length || 0) === records?.length
     );
   }, [records, selectedRecords]);
 
@@ -210,6 +216,7 @@ const HudoroTable = <T extends BaseRecord>({
                       <Td style={{ paddingRight: '16px' }}>
                         <Flex direction="row" align="center" justify="flex-end">
                           <MenuTable
+                            titleActionCustom={titleActionCustom}
                             onClickDetail={
                               handleDetail
                                 ? () => handleDetail(record.id)

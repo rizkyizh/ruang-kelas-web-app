@@ -13,3 +13,7 @@ export interface TransactionModel {
   isRegistered: boolean;
   createdAt: string;
 }
+
+export interface UpdateStatusCourseCreationModel {
+  statusUpdate: 'success' | 'failed' | 'process'; // success, process, failed
+}

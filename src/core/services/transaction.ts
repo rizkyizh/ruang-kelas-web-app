@@ -16,6 +16,10 @@ export const transactionService = {
   getAllTransactions: http.get<ApiResponse<TransactionModel>>(
     `${API_ENDPOINTS.transaction}`,
     initialOptionWithRefreshToken
+  ),
+  updateStatusTransaction: http.put<ApiResponse<TransactionModel>>(
+    `${API_ENDPOINTS.transaction}`,
+    initialOptionWithRefreshToken
   )
 
   // create: http.post<ApiResponse, BusinessTypeCreationModel>(

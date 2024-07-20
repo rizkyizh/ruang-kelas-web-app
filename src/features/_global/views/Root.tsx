@@ -15,8 +15,10 @@ import RootLayout from '../components/Layout';
 import { useProfile } from '../hooks';
 import { deleteAuthFromStorage } from '@features/authentication/utils';
 import { emitAuthUpdated } from '../helper';
+import { useQueryClient } from '@tanstack/react-query';
 
 function RootView() {
+  const queryClient = useQueryClient();
   const navigate = useNavigate();
   const { isPending, items } = useProfile();
   const [showDialog, setShowDialog] = useState(false);
@@ -30,6 +32,7 @@ function RootView() {
   const handleConfirmLogout = () => {
     setShowDialog(false);
     deleteAuthFromStorage().then(() => {
+      queryClient.resetQueries();
       navigate('/auth', {
         replace: true,
         state: {

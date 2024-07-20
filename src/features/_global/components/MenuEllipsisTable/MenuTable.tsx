@@ -18,6 +18,12 @@ interface IMenuEllipsisTableProps {
   isDetailAction?: boolean;
   isUpdateAction?: boolean;
   isDeleteAction?: boolean;
+  titleActionCustom?: {
+    detail?: string,
+    update?: string,
+    delete?: string
+  }
+
 }
 
 interface IButtonMenuTableProps {
@@ -60,7 +66,8 @@ const MenuTable = ({
   onClickDelete,
   isDetailAction = true,
   isUpdateAction = true,
-  isDeleteAction = true
+  isDeleteAction = true,
+  titleActionCustom
 }: IMenuEllipsisTableProps) => {
   return (
     <Menu position={position}>
@@ -82,7 +89,7 @@ const MenuTable = ({
           <ButtonMenuTable onClick={onClickDetail}>
             <Icon name="DocumentClean" size="md" />
             <Text fontWeight="medium" fontSize="sm" color={'text'}>
-              Detail
+              {titleActionCustom?.detail ? titleActionCustom.detail : "Detail"}
             </Text>
           </ButtonMenuTable>
         ) : null}
@@ -90,7 +97,7 @@ const MenuTable = ({
           <ButtonMenuTable onClick={onClickUpdate}>
             <Icon name="Edit1" size="md" />
             <Text fontWeight="medium" fontSize="sm" color={'text'}>
-              Update
+              {titleActionCustom?.update ? titleActionCustom.update : "Update"}
             </Text>
           </ButtonMenuTable>
         ) : null}
@@ -107,7 +114,7 @@ const MenuTable = ({
               fontSize="sm"
               style={{ color: 'var(--hsd-ui-utility-danger-default)' }}
             >
-              Delete
+              {titleActionCustom?.delete ? titleActionCustom.delete : "Delete"}
             </Text>
           </ButtonMenuTable>
         ) : null}

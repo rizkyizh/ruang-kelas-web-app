@@ -1,24 +1,30 @@
 import HudoroTable from '@features/_global/components/TableMaster';
 import { UIEmpty } from '@features/_global/components/UIEmpty';
 import { Badges, Icon, PageLayout, Section, Text } from '@hudoro/admin';
-import { CourseDeleteConfirmationDialog } from '../components/Dialog/CourseDeleteConfirmationDialog';
-import { CourseCreationDrawer } from '../components/Drawer/CourseCreationDrawer';
 import { useTransactions } from '../hooks/useTransactions';
 import { STATUS_TRANSACTION } from '@features/my-transaction/helper';
 import { formatDate } from '@features/_global/helper';
+import { TransactionCreationDrawer } from '../components/Drawer/TransactionCreationDrawer';
+import { useAtom } from 'jotai';
+import { transactionCreationDrawerAtom } from '../stores';
+import { TransactionModel } from '@core/models/transaction';
 
-const Dot = () => (
+export const Dot = () => (
   <Icon
     name="Dot"
     size="md"
     style={{ color: 'var(--Badge-Danger-Text, rgba(201, 24, 74, 1))' }}
   />
 );
-const DotSuccess = () => (
+export const DotSuccess = () => (
   <Icon name="Dot" size="md" style={{ color: '#15803d' }} />
 );
 
 export default function TransactionView() {
+  const [, setCreationDrawer] = useAtom(
+    transactionCreationDrawerAtom
+  );
+
   // const navigate = useNavigate();
   // const [, setCreationDrawer] = useAtom(courseCreationDrawerAtom);
   // const [, setDeleteConfirmationDialog] = useAtom(
@@ -26,16 +32,15 @@ export default function TransactionView() {
   // );
   const { items, isLoading } = useTransactions();
 
-  // const handleUpdate = (item: CourseModel) => {
-  //   setCreationDrawer(prev => ({
-  //     ...prev,
-  //     action: 'UPDATE',
-  //     show: true,
-  //     dataState: {
-  //       ...item
-  //     }
-  //   }));
-  // };
+  const handleUpdate = (item: TransactionModel) => {
+    setCreationDrawer(prev => ({
+      ...prev,
+      show: true,
+      dataState: {
+        ...item
+      }
+    }));
+  };
   // const handleDelete = (id: string | number, item: CourseModel) => {
   //   setDeleteConfirmationDialog(prev => ({
   //     ...prev,
@@ -53,40 +58,43 @@ export default function TransactionView() {
       <PageLayout
         title="Transactions"
         titleTag={`${items?.length}`}
-        // action={[
-        //   {
-        //     title: 'Create Course',
-        //     onClick: () => {
-        //       setCreationDrawer(prev => ({ ...prev, show: true }));
-        //     }
-        //   }
-        // ]}
+      // action={[
+      //   {
+      //     title: 'Create Course',
+      //     onClick: () => {
+      //       setCreationDrawer(prev => ({ ...prev, show: true }));
+      //     }
+      //   }
+      // ]}
       >
         <Section>
           <HudoroTable
             records={items}
             isLoading={isLoading}
             // handleDetail={handleDetail}
-            // handleUpdate={handleUpdate}
+            handleUpdate={handleUpdate}
+            titleActionCustom={{
+              update: 'Update Status'
+            }}
             // handleDelete={handleDelete}
             emptyState={
               <UIEmpty
                 message="There is no Transactions"
-                // message2="Create your first Course now"
-                // button={
-                //   <Button
-                //     primary
-                //     onClick={() =>
-                //       setCreationDrawer(prev => ({
-                //         ...prev,
-                //         show: true,
-                //         status: 'ADD'
-                //       }))
-                //     }
-                //   >
-                //     Create Course
-                //   </Button>
-                // }
+              // message2="Create your first Course now"
+              // button={
+              //   <Button
+              //     primary
+              //     onClick={() =>
+              //       setCreationDrawer(prev => ({
+              //         ...prev,
+              //         show: true,
+              //         status: 'ADD'
+              //       }))
+              //     }
+              //   >
+              //     Create Course
+              //   </Button>
+              // }
               />
             }
             columns={[
@@ -183,8 +191,7 @@ export default function TransactionView() {
           />
         </Section>
       </PageLayout>
-      <CourseCreationDrawer />
-      <CourseDeleteConfirmationDialog />
+      <TransactionCreationDrawer />
     </>
   );
 }

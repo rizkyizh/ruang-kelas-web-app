@@ -13,10 +13,13 @@ import { Outlet, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { deleteAuthFromStorage } from '@features/authentication/utils';
 import { useProfile } from '../hooks';
+import { useQueryClient } from '@tanstack/react-query';
+import { emitAuthUpdated } from '../helper';
 // import { useProfile } from '../hooks/useProfile';
 // import { useMenus } from '../hooks';
 
 function DashboardRootView() {
+  const queryClient = useQueryClient();
   // const auth = useAuth();
   // const setupMenus = useMenus();
   // const location = useLocation();
@@ -51,6 +54,7 @@ function DashboardRootView() {
   const handleConfirmLogout = () => {
     setShowDialog(false);
     deleteAuthFromStorage().then(() => {
+      queryClient.resetQueries();
       navigate('/auth', {
         replace: true,
         state: {
@@ -58,6 +62,7 @@ function DashboardRootView() {
         }
       });
     });
+    emitAuthUpdated();
   };
 
   return (
