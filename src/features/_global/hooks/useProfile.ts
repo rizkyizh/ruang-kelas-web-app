@@ -1,14 +1,7 @@
 import { useAuth } from '@features/authentication/hooks/useAuth';
 import { useQuery } from '@tanstack/react-query';
 import { jwtDecode } from 'jwt-decode';
-
-interface DecodeToken {
-  autorities: string[];
-  email: string;
-  sub: string;
-  iat: number;
-  exp: number;
-}
+import { DecodeToken } from '../types';
 
 export function useProfile() {
   const auth = useAuth();

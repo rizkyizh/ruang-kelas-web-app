@@ -186,7 +186,7 @@ export function Header({
                   <MenuButton>
                     <Button primary onClick={state.toggleMobileLogout}>
                       <Text fontFamily="Poppins" color="gray-50" fontSize="sm">
-                        Hello, {initialName}
+                        Hello, {userData?.name}
                       </Text>
                     </Button>
                   </MenuButton>

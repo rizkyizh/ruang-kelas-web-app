@@ -1,4 +1,4 @@
-import { PageLayout, Section } from '@hudoro/admin';
+import { Box, PageLayout, Section } from '@hudoro/admin';
 import { useMyCourses } from '../hooks/useMyCourses';
 import { CourseCard } from '../components/CourseCard';
 
@@ -11,11 +11,13 @@ export default function MyCourseView() {
           borderBottom: false
         }}
       >
-        {isLoading
-          ? 'Loading...'
-          : items?.map((item, idx) => {
-              return <CourseCard key={idx} title={item.course.title} />;
-            })}
+        <Box gap="md" direction="row" flexWrap="wrap">
+          {isLoading
+            ? 'Loading...'
+            : items?.map((item, idx) => {
+                return <CourseCard key={idx} title={item.course.title} />;
+              })}
+        </Box>
       </Section>
     </PageLayout>
   );

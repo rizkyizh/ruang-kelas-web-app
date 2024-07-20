@@ -83,3 +83,9 @@ function getMonthName(month: number) {
 
   return date.toLocaleString('default', { month: 'long' });
 }
+
+export function titleCase(input: string): string {
+  return input
+    .toLowerCase()
+    .replace(/(?:^|\s)\w/g, match => match.toUpperCase());
+}

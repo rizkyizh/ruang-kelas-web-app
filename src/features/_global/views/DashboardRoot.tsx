@@ -14,7 +14,7 @@ import { useState } from 'react';
 import { deleteAuthFromStorage } from '@features/authentication/utils';
 import { useMenus, useProfile } from '../hooks';
 import { useQueryClient } from '@tanstack/react-query';
-import { emitAuthUpdated } from '../helper';
+import { emitAuthUpdated, titleCase } from '../helper';
 // import { useProfile } from '../hooks/useProfile';
 // import { useMenus } from '../hooks';
 
@@ -74,8 +74,8 @@ function DashboardRootView() {
         userData={{
           name: isPending
             ? 'Loading...'
-            : items?.sub !== undefined
-              ? items.sub
+            : items?.name !== undefined
+              ? titleCase(items.name)
               : '',
           email: isPending
             ? 'Loading...'
