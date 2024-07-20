@@ -47,7 +47,7 @@ export function CourseCreationDrawer() {
   const {
     items: categoryDropdowns,
     handleClickCategoryDropdown,
-    isLoading: isLoadingEaCodeDD
+    isLoading: isLoadingCategoryDD
   } = useCategoryDropdown();
 
   const validate = useCallback(() => {
@@ -60,9 +60,9 @@ export function CourseCreationDrawer() {
     if (!form.values.price) {
       newErrors.price = 'Price is required';
     }
-    if (!form.values.thumbnail) {
-      newErrors.thumbnail = 'Thumbnail is required';
-    }
+    // if (!form.values.thumbnail) {
+    //   newErrors.thumbnail = 'Thumbnail is required';
+    // }
     if (!form.values.instructor) {
       newErrors.instructor = 'Instructor is required';
     }
@@ -199,30 +199,30 @@ export function CourseCreationDrawer() {
               <Dropdown
                 key={`${creationDrawer.show}-${form.values.category.id}`}
                 dropdownLists={
-                  isLoadingEaCodeDD
+                  isLoadingCategoryDD
                     ? [
-                      {
-                        label: 'Loading....',
-                        value: 'loading....'
-                      }
-                    ]
+                        {
+                          label: 'Loading....',
+                          value: 'loading....'
+                        }
+                      ]
                     : categoryDropdowns !== undefined
                       ? [
-                        ...categoryDropdowns.map(e => ({
-                          label: e.name,
-                          value: e.id.toString()
-                        }))
-                      ]
+                          ...categoryDropdowns.map(e => ({
+                            label: e.name,
+                            value: e.id.toString()
+                          }))
+                        ]
                       : []
                 }
                 defaultValue={
                   form.values.category.id
                     ? [
-                      {
-                        label: form.values.category.name,
-                        value: form.values.category.id.toString()
-                      }
-                    ]
+                        {
+                          label: form.values.category.name,
+                          value: form.values.category.id.toString()
+                        }
+                      ]
                     : []
                 }
                 onChange={e => {

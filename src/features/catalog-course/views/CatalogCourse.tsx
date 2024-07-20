@@ -1,7 +1,6 @@
 import LayoutContainer from '@features/_global/components/Container.tsx';
 import {
   Box,
-  Button,
   Flex,
   Section,
   Tab,
@@ -22,7 +21,7 @@ import { ConfirmAddCourseDialog } from '../components/ConfirmAddCourse';
 
 export function CatalogCourseView() {
   const [itemSelected, setItemSelected] = useState<CourseModel>();
-  const { items, refetch } = useCatalogCourses();
+  const { items } = useCatalogCourses();
 
   const renderItems = () => {
     return items?.map((item, index) => (
@@ -41,7 +40,7 @@ export function CatalogCourseView() {
             title="Daftar Kelas Tersedia"
             titleTag={`${items?.length}`}
             headerProps={{ borderBottom: false }}
-            action={<Button onClick={() => refetch()}>refresh</Button>}
+            // action={<Button onClick={() => refetch()}>refresh</Button>}
           >
             <Box
               bg="gray-50"
@@ -110,7 +109,6 @@ export function CatalogCourseView() {
             </Tabs>
           </Section>
         </Flex>
-
         {itemSelected && <DetailCourse data={itemSelected} />}
       </Box>
       <ConfirmAddCourseDialog />

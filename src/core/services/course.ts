@@ -2,6 +2,7 @@ import { API_ENDPOINTS } from '@core/configs/app';
 import { initialOptionWithRefreshToken } from '@core/libs/helpers/refreshToken';
 import { ApiResponse } from '@core/libs/http/types';
 import { CourseCreationModel, CourseModel } from '@core/models/course';
+import { TransactionModel } from '@core/models/transaction';
 import { http } from '@hudoro/admin';
 
 export const courseService = {
@@ -24,6 +25,10 @@ export const courseService = {
   ),
   delete: http.delete<ApiResponse<CourseModel>>(
     API_ENDPOINTS.course,
+    initialOptionWithRefreshToken
+  ),
+  getMyCourses: http.get<ApiResponse<TransactionModel>>(
+    `${API_ENDPOINTS.transaction}/course-registered`,
     initialOptionWithRefreshToken
   )
 };

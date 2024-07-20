@@ -1,5 +1,22 @@
-import { PageLayout } from '@hudoro/admin';
+import { PageLayout, Section } from '@hudoro/admin';
+import { useMyCourses } from '../hooks/useMyCourses';
+import { CourseCard } from '../components/CourseCard';
 
 export default function MyCourseView() {
-  return <PageLayout>my course</PageLayout>;
+  const { items, isLoading } = useMyCourses();
+  return (
+    <PageLayout title="My Courses" titleTag={`${items?.length}`}>
+      <Section
+        headerProps={{
+          borderBottom: false
+        }}
+      >
+        {isLoading
+          ? 'Loading...'
+          : items?.map((item, idx) => {
+              return <CourseCard key={idx} title={item.course.title} />;
+            })}
+      </Section>
+    </PageLayout>
+  );
 }

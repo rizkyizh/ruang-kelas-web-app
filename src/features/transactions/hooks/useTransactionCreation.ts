@@ -5,6 +5,7 @@ import { ApiResponse, toast } from '@hudoro/admin';
 import { UpdateStatusCourseCreationModel } from '@core/models/transaction';
 import { transactionService } from '@core/services/transaction';
 import { useHistories } from '@features/histories/hooks/useHistories';
+import { useMembers } from '@features/members/hooks/useMembers';
 
 type MUTATION_TYPE = 'create' | 'update' | 'delete' | 'update-status';
 interface MutationVariables {
@@ -17,6 +18,7 @@ export function useTransactionCreation() {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const { refetch } = useHistories();
+  const { refetch: refetchmember } = useMembers();
 
   const mutation = useMutation({
     mutationKey: ['mutation-transaction'],
@@ -41,6 +43,7 @@ export function useTransactionCreation() {
           queryKey: ['transaction-items']
         });
         refetch();
+        refetchmember();
       }
     },
     onError: res => {

@@ -2,6 +2,7 @@ import { Box, HorizontalField, PageLayout, Section } from '@hudoro/admin';
 import { useCourse } from '../hooks/useCourses';
 import MarkdownRenderer from '@features/_global/components/MarkdownRenderer';
 import { TextFormLabel } from '@features/_global/components';
+import defaultImg from '@core/assets/svg/preview_img_default.svg';
 
 export default function CourseDetailView() {
   const { items, isLoading } = useCourse();
@@ -57,7 +58,7 @@ export default function CourseDetailView() {
             <img
               src={
                 // 'https://file-storage-dev.sgp1.digitaloceanspaces.com/tuvi-mobile/' +
-                items?.thumbnail
+                items?.thumbnail || defaultImg
               }
               style={{
                 width: '100%',

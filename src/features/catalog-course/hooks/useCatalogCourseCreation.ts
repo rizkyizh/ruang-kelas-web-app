@@ -4,7 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import { ApiResponse, toast } from '@hudoro/admin';
 import { addCourseCreationModel } from '@core/models/transaction';
 import { transactionService } from '@core/services/transaction';
-import { useDetailCourse } from './useCatalogCourses';
+import { useMyhistories } from '@features/my-histories/hooks/useMyHistories';
+import { useMyTransaction } from '@features/my-transaction/hooks/useMyTransaction';
 
 type MUTATION_TYPE = 'create' | 'update' | 'delete';
 interface MutationVariables {
@@ -16,7 +17,8 @@ interface MutationVariables {
 export function useCatalogCourseCreation() {
   const navigate = useNavigate();
   // const queryClient = useQueryClient();
-  const { refetch } = useDetailCourse();
+  const { refetch: refetchHistory } = useMyhistories();
+  const { refetch } = useMyTransaction();
 
   const mutation = useMutation({
     mutationKey: ['mutation-add-catalog-course'],
@@ -37,6 +39,7 @@ export function useCatalogCourseCreation() {
 
       if (res?.status) {
         toast.success(res?.messages[0]);
+        refetchHistory();
         refetch();
       }
     },
