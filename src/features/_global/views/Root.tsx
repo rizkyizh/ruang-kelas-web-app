@@ -16,6 +16,7 @@ import { useProfile } from '../hooks';
 import { deleteAuthFromStorage } from '@features/authentication/utils';
 import { emitAuthUpdated } from '../helper';
 import { useQueryClient } from '@tanstack/react-query';
+import { Footer } from '../components/Footer';
 
 function RootView() {
   const queryClient = useQueryClient();
@@ -86,6 +87,7 @@ function RootView() {
           }}
         />
         <Outlet />
+        <Footer />
       </RootLayout>
       <Dialog isShow={showDialog} onHide={handleCancelLogout}>
         <DialogTitle>Confirmation Logout</DialogTitle>

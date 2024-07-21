@@ -1,4 +1,3 @@
-import LayoutContainer from '@features/_global/components/Container.tsx';
 import {
   Box,
   Flex,
@@ -14,13 +13,14 @@ import { useCatalogCourses } from '../hooks/useCatalogCourses';
 import { CourseItemCard } from '../components/CourseItemCard';
 
 import { useState } from 'react';
-import { CourseModel } from '@core/models/course';
+import { CourseMemberModel } from '@core/models/course';
 import { DetailCourse } from '../components/DetailCourse';
 import CatalogSection from '../components/Section';
 import { ConfirmAddCourseDialog } from '../components/ConfirmAddCourse';
+import LayoutContainer from '@features/_global/components/Container';
 
 export function CatalogCourseView() {
-  const [itemSelected, setItemSelected] = useState<CourseModel>();
+  const [itemSelected, setItemSelected] = useState<CourseMemberModel>();
   const { items } = useCatalogCourses();
 
   const renderItems = () => {
@@ -40,7 +40,7 @@ export function CatalogCourseView() {
             title="Daftar Kelas Tersedia"
             titleTag={`${items?.length}`}
             headerProps={{ borderBottom: false }}
-            // action={<Button onClick={() => refetch()}>refresh</Button>}
+          // action={<Button onClick={() => refetch()}>refresh</Button>}
           >
             <Box
               bg="gray-50"

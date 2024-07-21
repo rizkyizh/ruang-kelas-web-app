@@ -5,23 +5,26 @@ interface LayoutProps extends BoxProps {
   children: ReactNode;
 }
 
-const LayoutContainer: React.FC<LayoutProps> = React.memo(({ children }) => {
-  const desktop = useMediaQuery('lg');
-  const tablet = useMediaQuery('md');
-  return (
-    <Box
-      marginTop="md"
-      gap="md"
-      paddingLeft={
-        desktop ? 'spacing-48' : tablet ? 'spacing-24' : 'spacing-10'
-      }
-      paddingRight={
-        desktop ? 'spacing-48' : tablet ? 'spacing-24' : 'spacing-10'
-      }
-    >
-      {children}
-    </Box>
-  );
-});
+const LayoutContainer: React.FC<LayoutProps> = React.memo(
+  (props: LayoutProps) => {
+    const desktop = useMediaQuery('lg');
+    const tablet = useMediaQuery('md');
+    return (
+      <Box
+        {...props}
+        marginTop={props.marginTop || 'md'}
+        gap="md"
+        paddingLeft={
+          desktop ? 'spacing-48' : tablet ? 'spacing-24' : 'spacing-10'
+        }
+        paddingRight={
+          desktop ? 'spacing-48' : tablet ? 'spacing-24' : 'spacing-10'
+        }
+      >
+        {props.children}
+      </Box>
+    );
+  }
+);
 
 export default LayoutContainer;

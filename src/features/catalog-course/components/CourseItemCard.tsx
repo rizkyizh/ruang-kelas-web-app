@@ -1,9 +1,9 @@
-import { CourseModel } from '@core/models/course';
+import { CourseMemberModel } from '@core/models/course';
 import { Box, Text } from '@hudoro/admin';
 import defaultImg from '@core/assets/svg/preview_img_default.svg';
 interface ICourseCard {
-  data: CourseModel;
-  onClick: (record: CourseModel) => void;
+  data: CourseMemberModel;
+  onClick: (record: CourseMemberModel) => void;
 }
 export function CourseItemCard(props: ICourseCard) {
   return (
