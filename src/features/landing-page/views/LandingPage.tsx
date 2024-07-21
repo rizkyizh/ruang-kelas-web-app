@@ -3,6 +3,7 @@ import { Box, Button, Text } from '@hudoro/admin';
 import sigInImage from '@core/assets/svg/hero-bg.jpg';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@features/authentication/hooks/useAuth';
+import LayoutContainer from '@features/_global/components/Container';
 export function LandingPageView() {
   const auth = useAuth();
   const navigate = useNavigate();
@@ -21,7 +22,7 @@ export function LandingPageView() {
       justify="center"
       align="center"
     >
-      <Box>
+      <LayoutContainer>
         <Text
           fontSize="5xl"
           fontWeight="extrabold"
@@ -59,7 +60,7 @@ export function LandingPageView() {
         >
           {!auth.token ? 'Masuk' : 'Go to dashboard'}
         </Button>
-      </Box>
+      </LayoutContainer>
     </Box>
   );
 }
