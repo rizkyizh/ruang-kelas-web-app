@@ -28,6 +28,7 @@ interface Column<T> {
   title?: string;
   textAlign?: 'left' | 'right' | 'center';
   render?: (record: T) => React.ReactNode;
+  customWidth?: string;
 }
 
 interface DataTableProps<T extends BaseRecord> {
@@ -44,10 +45,10 @@ interface DataTableProps<T extends BaseRecord> {
   isLoading: boolean;
   noFilterText?: string;
   titleActionCustom?: {
-    detail?: string,
-    update?: string,
-    delete?: string
-  }
+    detail?: string;
+    update?: string;
+    delete?: string;
+  };
 }
 
 const HudoroTable = <T extends BaseRecord>({
@@ -136,7 +137,7 @@ const HudoroTable = <T extends BaseRecord>({
                 fontWeight: 'bold',
                 textTransform: 'uppercase',
                 fontSize: '14pt',
-                height: '50px',
+                height: '48px',
                 whiteSpace: 'nowrap'
               }}
             >
@@ -194,7 +195,8 @@ const HudoroTable = <T extends BaseRecord>({
                         key={`row-${rowIndex}-col-${colIndex}`}
                         style={{
                           paddingLeft: colIndex === 0 ? '16px' : '',
-                          textAlign: col.textAlign || 'left'
+                          textAlign: col.textAlign || 'left',
+                          width: col.customWidth
                         }}
                       >
                         {col.render ? (

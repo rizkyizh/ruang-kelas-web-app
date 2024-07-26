@@ -26,7 +26,7 @@ export default function MyTransactionView() {
           <HudoroTable
             records={items}
             isLoading={isLoading}
-            emptyState={<UIEmpty message="Data empty element" />}
+            emptyState={<UIEmpty message="Data empty" />}
             columns={[
               {
                 accessor: 'ID',

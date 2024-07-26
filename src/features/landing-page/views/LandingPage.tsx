@@ -51,7 +51,7 @@ export function LandingPageView() {
             if (!auth.token) {
               navigate('/auth');
             } else {
-              navigate('/dashboard/my-course');
+              navigate('/dashboard/home');
             }
           }}
           quaternary
