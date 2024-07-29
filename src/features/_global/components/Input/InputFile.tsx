@@ -1,6 +1,7 @@
-import { formatDateToIndonesian } from '@core/libs/helpers/date';
-import convertSize from '@features/_global/helper/convertSizeToKb';
-import { ROLE, useUserCurrentRole } from '@features/_global/hooks';
+import { formatDateToIndonesian } from '@core/libs/helpers';
+import { convertSize } from '@features/_global/helper';
+import { useUserCurrentRole } from '@features/_global/hooks';
+import { autorities } from '@features/_global/types';
 import {
   Box,
   Button,
@@ -70,7 +71,7 @@ const InputFile = ({
     if (inputRef.current) {
       inputRef.current.click();
     }
-    if (role !== ROLE.SUPER_ADMIN) {
+    if (role !== autorities.ROLE_ADMIN) {
       toast.danger('Anda tidak memiliki akses');
     }
   };
@@ -88,7 +89,7 @@ const InputFile = ({
   const mobile = useMediaQuery('md');
   return (
     <>
-      {role === ROLE.SUPER_ADMIN && (
+      {role === autorities.ROLE_ADMIN && (
         <input
           type="file"
           style={{ display: 'none' }}
@@ -155,7 +156,7 @@ const InputFile = ({
                   </Flex>
                 </Flex>
               </Flex>
-              {role === ROLE.SUPER_ADMIN && (
+              {role === autorities.ROLE_ADMIN && (
                 <Button
                   size="xs"
                   secondary

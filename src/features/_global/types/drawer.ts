@@ -5,3 +5,8 @@ export interface ICreationDrawerAtomModel<T> {
   action: action;
   dataState: T;
 }
+
+export interface ISingleActionDrawerAtomModel<T> {
+  show: boolean;
+  dataState?: T;
+}

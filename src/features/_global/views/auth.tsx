@@ -1,18 +1,16 @@
-import { Navigate, Outlet } from 'react-router-dom';
-import { useAuth } from '@features/authentication/hooks/useAuth';
-import { AuthLayout, useApp } from '@hudoro/admin';
-import sigInImage from '@core/assets/svg/SignIn-img.svg';
+import { Outlet } from 'react-router-dom';
+import sigInImage from '@core/assets/svg/hero-bg.jpg';
+import { AuthLayout } from '../components/AuthLayout';
 
 const AuthView = () => {
-  const auth = useAuth();
-  const app = useApp();
+  // const auth = useAuth();
 
-  if (auth.loading) return null;
+  // if (auth.loading) return null;
 
-  if (auth.accessToken) return <Navigate to="/customers" replace />;
+  // if (auth.token) return <Navigate to="/" replace />;
 
   return (
-    <AuthLayout logo={app.logo} coverImage={sigInImage}>
+    <AuthLayout coverImage={sigInImage}>
       <Outlet />
     </AuthLayout>
   );

@@ -1,5 +1,5 @@
-export interface ApiResponse<T> {
+export interface ApiResponse<T = unknown> {
   status: boolean;
   messages: string[];
-  payload: T;
+  payload: T[];
 }

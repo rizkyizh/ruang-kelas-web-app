@@ -27,3 +27,7 @@ export interface CourseCreationModel {
   end: string;
   category: CategoryModel;
 }
+
+export interface CourseMemberModel extends CourseModel {
+  isRegistered: boolean;
+}

@@ -12,17 +12,23 @@ import {
 import { Outlet, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { deleteAuthFromStorage } from '@features/authentication/utils';
+import { useMenus, useProfile } from '../hooks';
+import { useQueryClient } from '@tanstack/react-query';
+import { emitAuthUpdated, titleCase } from '../helper';
 // import { useProfile } from '../hooks/useProfile';
 // import { useMenus } from '../hooks';
 
-function RootView() {
+function DashboardRootView() {
+  const queryClient = useQueryClient();
   // const auth = useAuth();
-  // const setupMenus = useMenus();
+  const setupMenus = useMenus();
   // const location = useLocation();
   const app = useApp();
   const navigate = useNavigate();
   // const { data: profile, isLoading: loadingProfile } = useProfile();
   // const userProfile = profile && profile.data ? profile.data : null;
+
+  const { isPending, items } = useProfile();
 
   const [showDialog, setShowDialog] = useState(false);
 
@@ -48,27 +54,35 @@ function RootView() {
   const handleConfirmLogout = () => {
     setShowDialog(false);
     deleteAuthFromStorage().then(() => {
-      navigate('/login', {
+      queryClient.resetQueries();
+      navigate('/auth', {
         replace: true,
         state: {
           userLoggedOut: true
         }
       });
     });
+    emitAuthUpdated();
   };
 
   return (
     <>
       <DashboardLayout
         logo={app.logo}
-        menus={app.menus}
+        menus={setupMenus}
         onClickLogout={handleShowLogoutDialog}
-        // userData={{
-        //   email: loadingProfile
-        //     ? 'Loading...'
-        //     : userProfile?.email || 'unknown',
-        //   name: loadingProfile ? 'Loading...' : userProfile?.name || 'unknown'
-        // }}
+        userData={{
+          name: isPending
+            ? 'Loading...'
+            : items?.name !== undefined
+              ? titleCase(items.name)
+              : '',
+          email: isPending
+            ? 'Loading...'
+            : items?.email !== undefined
+              ? items.email
+              : ''
+        }}
       >
         <Outlet />
       </DashboardLayout>
@@ -99,4 +113,4 @@ function RootView() {
   );
 }
 
-export default RootView;
+export default DashboardRootView;

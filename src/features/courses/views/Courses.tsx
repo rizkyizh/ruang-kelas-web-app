@@ -1,6 +1,6 @@
 import HudoroTable from '@features/_global/components/TableMaster';
 import { UIEmpty } from '@features/_global/components/UIEmpty';
-import { Badges, Icon, PageLayout, Section, Text } from '@hudoro/admin';
+import { Badges, Button, Icon, PageLayout, Section, Text } from '@hudoro/admin';
 import {
   courseCreationDrawerAtom,
   courseDeleteConfirmationDialogAtom
@@ -10,6 +10,7 @@ import { CourseModel } from '@core/models/course';
 import { useCourses } from '../hooks/useCourses';
 import { CourseDeleteConfirmationDialog } from '../components/Dialog/CourseDeleteConfirmationDialog';
 import { CourseCreationDrawer } from '../components/Drawer/CourseCreationDrawer';
+import { useNavigate } from 'react-router-dom';
 
 const Dot = () => (
   <Icon
@@ -23,6 +24,7 @@ const DotSuccess = () => (
 );
 
 export default function CoursesView() {
+  const navigate = useNavigate();
   const [, setCreationDrawer] = useAtom(courseCreationDrawerAtom);
   const [, setDeleteConfirmationDialog] = useAtom(
     courseDeleteConfirmationDialogAtom
@@ -47,6 +49,9 @@ export default function CoursesView() {
       itemName: item.title
     }));
   };
+  const handleDetail = (id: string | number) => {
+    navigate(`${id}`);
+  };
 
   return (
     <>
@@ -55,7 +60,7 @@ export default function CoursesView() {
         titleTag={`${items?.length}`}
         action={[
           {
-            title: 'Create Type',
+            title: 'Create Course',
             onClick: () => {
               setCreationDrawer(prev => ({ ...prev, show: true }));
             }
@@ -66,9 +71,29 @@ export default function CoursesView() {
           <HudoroTable
             records={items}
             isLoading={isLoading}
+            handleDetail={handleDetail}
             handleUpdate={handleUpdate}
             handleDelete={handleDelete}
-            emptyState={<UIEmpty message="Data empty element" />}
+            emptyState={
+              <UIEmpty
+                message="There is no Course list"
+                message2="Create your first Course now"
+                button={
+                  <Button
+                    primary
+                    onClick={() =>
+                      setCreationDrawer(prev => ({
+                        ...prev,
+                        show: true,
+                        status: 'ADD'
+                      }))
+                    }
+                  >
+                    Create Course
+                  </Button>
+                }
+              />
+            }
             columns={[
               {
                 accessor: 'ID',

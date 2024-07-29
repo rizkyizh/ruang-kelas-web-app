@@ -28,6 +28,7 @@ interface Column<T> {
   title?: string;
   textAlign?: 'left' | 'right' | 'center';
   render?: (record: T) => React.ReactNode;
+  customWidth?: string;
 }
 
 interface DataTableProps<T extends BaseRecord> {
@@ -39,9 +40,15 @@ interface DataTableProps<T extends BaseRecord> {
   handleDelete?: (id: number | string, item: T) => void;
   selectedRecords?: T[];
   onSelectedRecordsChange?: (selectedRecords: T[]) => void;
+  emptyStateFilter?: React.ReactElement;
   emptyState?: React.ReactElement;
   isLoading: boolean;
   noFilterText?: string;
+  titleActionCustom?: {
+    detail?: string;
+    update?: string;
+    delete?: string;
+  };
 }
 
 const HudoroTable = <T extends BaseRecord>({
@@ -55,7 +62,9 @@ const HudoroTable = <T extends BaseRecord>({
   onSelectedRecordsChange,
   isLoading = false,
   emptyState,
-  noFilterText
+  noFilterText,
+  emptyStateFilter,
+  titleActionCustom
 }: DataTableProps<T>) => {
   const [allSelected, setAllSelected] = useState(false);
   const [searchParams] = useSearchParams();
@@ -110,163 +119,172 @@ const HudoroTable = <T extends BaseRecord>({
 
   return (
     <>
-      <Box
-        borderWidth="border"
-        borderRadius="rounded-base"
-        borderStyle="border-solid"
-        overflow="overflow-x-auto"
-        style={{
-          borderColor: 'var(--hsd-ui-utility-fill-default)'
-        }}
-        width="width-full"
-      >
-        <Table>
-          <Thead
-            style={{
-              backgroundColor: '#F8F9FB',
-              fontWeight: 'bold',
-              textTransform: 'uppercase',
-              fontSize: '14pt',
-              height: '50px',
-              whiteSpace: 'nowrap'
-            }}
-          >
-            <Tr>
-              {onSelectedRecordsChange && (
-                <Th>
-                  <Checkbox checked={allSelected} onChange={handleSelectAll} />
-                </Th>
-              )}
+      {records?.length !== 0 && (
+        <Box
+          borderWidth="border"
+          borderRadius="rounded-base"
+          borderStyle="border-solid"
+          overflow="overflow-x-auto"
+          style={{
+            borderColor: 'var(--hsd-ui-utility-fill-default)'
+          }}
+          width="width-full"
+        >
+          <Table>
+            <Thead
+              style={{
+                backgroundColor: '#F8F9FB',
+                fontWeight: 'bold',
+                textTransform: 'uppercase',
+                fontSize: '14pt',
+                height: '48px',
+                whiteSpace: 'nowrap'
+              }}
+            >
+              <Tr>
+                {onSelectedRecordsChange && (
+                  <Th>
+                    <Checkbox
+                      checked={allSelected}
+                      onChange={handleSelectAll}
+                    />
+                  </Th>
+                )}
 
-              {columns.map((col, index) => (
-                <Th
-                  key={`table-head-${index}`}
-                  style={{
-                    paddingLeft: index === 0 ? '16px' : '',
-                    textAlign: col.textAlign || 'left'
-                  }}
-                >
-                  <Text fontSize="sm" fontWeight="semibold">
-                    {col.title || col.accessor.toString()}
-                  </Text>
-                </Th>
-              ))}
-              {(handleDetail || handleUpdate || handleDelete) && <Th></Th>}
-            </Tr>
-          </Thead>
-          <Tbody>
-            {records?.length !== 0 &&
-              records?.map((record, rowIndex) => (
-                <Tr
-                  key={`${record}${rowIndex}`}
-                  onMouseOver={e => {
-                    (e.currentTarget as HTMLElement).style.backgroundColor =
-                      '#EDF0F2';
-                  }}
-                  onMouseOut={e => {
-                    (e.currentTarget as HTMLElement).style.backgroundColor = '';
-                  }}
-                >
-                  {onSelectedRecordsChange && (
-                    <Td>
-                      <Checkbox
-                        checked={isSelected(record)}
-                        onChange={() => handleSelectRecord(record)}
-                      />
-                    </Td>
-                  )}
-
-                  {columns.map((col, colIndex) => (
-                    <Td
-                      key={`row-${rowIndex}-col-${colIndex}`}
-                      style={{
-                        paddingLeft: colIndex === 0 ? '16px' : '',
-                        textAlign: col.textAlign || 'left'
-                      }}
-                    >
-                      {col.render ? (
-                        col.render(record)
-                      ) : (
-                        <Text fontWeight="medium" fontSize="sm">
-                          {
-                            getCellValue(
-                              record,
-                              col.accessor
-                            ) as React.ReactNode
-                          }
-                        </Text>
-                      )}
-                    </Td>
-                  ))}
-                  {(handleDetail || handleUpdate || handleDelete) && (
-                    <Td style={{ paddingRight: '16px' }}>
-                      <Flex direction="row" align="center" justify="flex-end">
-                        <MenuTable
-                          onClickDetail={
-                            handleDetail
-                              ? () => handleDetail(record.id)
-                              : undefined
-                          }
-                          onClickUpdate={
-                            handleUpdate
-                              ? () => handleUpdate(record)
-                              : undefined
-                          }
-                          onClickDelete={
-                            handleDelete
-                              ? () => handleDelete(record.id, record)
-                              : undefined
-                          }
+                {columns.map((col, index) => (
+                  <Th
+                    key={`table-head-${index}`}
+                    style={{
+                      paddingLeft: index === 0 ? '16px' : '',
+                      textAlign: col.textAlign || 'left'
+                    }}
+                  >
+                    <Text fontSize="sm" fontWeight="semibold">
+                      {col.title || col.accessor.toString()}
+                    </Text>
+                  </Th>
+                ))}
+                {(handleDetail || handleUpdate || handleDelete) && <Th></Th>}
+              </Tr>
+            </Thead>
+            <Tbody>
+              {records?.length !== 0 &&
+                records?.map((record, rowIndex) => (
+                  <Tr
+                    key={`${record}${rowIndex}`}
+                    onMouseOver={e => {
+                      (e.currentTarget as HTMLElement).style.backgroundColor =
+                        '#EDF0F2';
+                    }}
+                    onMouseOut={e => {
+                      (e.currentTarget as HTMLElement).style.backgroundColor =
+                        '';
+                    }}
+                  >
+                    {onSelectedRecordsChange && (
+                      <Td>
+                        <Checkbox
+                          checked={isSelected(record)}
+                          onChange={() => handleSelectRecord(record)}
                         />
-                      </Flex>
-                    </Td>
-                  )}
-                </Tr>
-              ))}
-          </Tbody>
-        </Table>
+                      </Td>
+                    )}
 
-        {isLoading && (
-          <Box
-            customMinHeight={300}
-            display="flex"
-            align="center"
-            justify="center"
-          >
-            <Text fontWeight="semibold" textAlign="center">
-              Loading...
-            </Text>
-          </Box>
-        )}
+                    {columns.map((col, colIndex) => (
+                      <Td
+                        key={`row-${rowIndex}-col-${colIndex}`}
+                        style={{
+                          paddingLeft: colIndex === 0 ? '16px' : '',
+                          textAlign: col.textAlign || 'left',
+                          width: col.customWidth
+                        }}
+                      >
+                        {col.render ? (
+                          col.render(record)
+                        ) : (
+                          <Text fontWeight="medium" fontSize="sm">
+                            {
+                              getCellValue(
+                                record,
+                                col.accessor
+                              ) as React.ReactNode
+                            }
+                          </Text>
+                        )}
+                      </Td>
+                    ))}
 
-        {records?.length === 0 && isSearchParams && !isLoading && (
-          <Box
-            customMinHeight={300}
-            display="flex"
-            align="center"
-            justify="center"
-          >
-            <Text fontWeight="semibold" textAlign="center">
-              {noFilterText || 'The filter result is empty'}
-            </Text>
-          </Box>
-        )}
-
-        {records?.length === 0 && !isSearchParams && !isLoading && (
-          <Box
-            customMinHeight={300}
-            display="flex"
-            align="center"
-            justify="center"
-          >
-            {emptyState || (
+                    {(handleDetail || handleUpdate || handleDelete) && (
+                      <Td style={{ paddingRight: '16px' }}>
+                        <Flex direction="row" align="center" justify="flex-end">
+                          <MenuTable
+                            titleActionCustom={titleActionCustom}
+                            onClickDetail={
+                              handleDetail
+                                ? () => handleDetail(record.id)
+                                : undefined
+                            }
+                            onClickUpdate={
+                              handleUpdate
+                                ? () => handleUpdate(record)
+                                : undefined
+                            }
+                            onClickDelete={
+                              handleDelete
+                                ? () => handleDelete(record.id, record)
+                                : undefined
+                            }
+                          />
+                        </Flex>
+                      </Td>
+                    )}
+                  </Tr>
+                ))}
+            </Tbody>
+          </Table>
+          {isLoading && (
+            <Box
+              style={{ minHeight: 'calc(100vh - 350px' }}
+              display="flex"
+              align="center"
+              justify="center"
+            >
               <Text fontWeight="semibold" textAlign="center">
-                There is no data.
+                Loading...
               </Text>
-            )}
-          </Box>
-        )}
-      </Box>
+            </Box>
+          )}
+
+          {records?.length === 0 && isSearchParams && !isLoading && (
+            <Box
+              style={{ minHeight: 'calc(100vh - 350px' }}
+              display="flex"
+              align="center"
+              justify="center"
+            >
+              {emptyStateFilter || (
+                <Text fontWeight="semibold" textAlign="center">
+                  {noFilterText || 'The filter result is empty'}
+                </Text>
+              )}
+            </Box>
+          )}
+        </Box>
+      )}
+      {records?.length === 0 && !isSearchParams && !isLoading && (
+        <Box
+          style={{ minHeight: 'calc(100vh - 350px' }}
+          display="flex"
+          align="center"
+          justify="center"
+        >
+          {emptyState || (
+            <Text fontWeight="semibold" textAlign="center">
+              There is no data.
+            </Text>
+          )}
+        </Box>
+      )}
 
       {pagination && records?.length !== 0 && (
         <Paginate

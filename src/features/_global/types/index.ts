@@ -3,3 +3,4 @@ export * from './error';
 export * from './drawer';
 export * from './dialog';
 export * from './dropdown';
+export * from './auth';
