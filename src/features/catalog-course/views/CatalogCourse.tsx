@@ -40,7 +40,7 @@ export function CatalogCourseView() {
             title="Daftar Kelas Tersedia"
             titleTag={`${items?.length}`}
             headerProps={{ borderBottom: false }}
-          // action={<Button onClick={() => refetch()}>refresh</Button>}
+            // action={<Button onClick={() => refetch()}>refresh</Button>}
           >
             <Box
               bg="gray-50"
@@ -102,7 +102,11 @@ export function CatalogCourseView() {
                     paddingBlock="md"
                     customHeight={'340px'}
                   >
-                    ini adalah link pretest
+                    <Text>Berikut link Pre-Test </Text>
+                    <a href="https://bit.ly/TestCourseI" target="_blank">
+                      klik disini
+                    </a>
+                    <Text>Selamat mengerjakan</Text>
                   </Box>
                 </TabPanel>
               </TabPanels>

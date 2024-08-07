@@ -12,7 +12,7 @@ import { MENU_CONFIG } from '@features/_global/configs';
 import apptheme from '@core/assets/theme/app-theme.json';
 import NotFoundPageView from '@features/_global/views/NotFound';
 import ForbiddenPageView from '@features/_global/views/Forbidden';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+// import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import MembersView from '@features/members/views/Members';
 import CoursesView from '@features/courses/views/Courses';
 
@@ -167,7 +167,7 @@ function AppContainer() {
         <ToastContainer type="outline" direction="top-right" />,
         document.body
       )}
-      <ReactQueryDevtools initialIsOpen={false} />
+      {/*   <ReactQueryDevtools initialIsOpen={false} /> */}
     </Query>
   );
 }
